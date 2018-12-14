@@ -1,0 +1,8 @@
+---
+
+- name: Create user
+  hosts: develop
+  any_errors_fatal: true
+  become: yes
+  roles:
+    - user-prepare

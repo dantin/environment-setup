@@ -1,0 +1,15 @@
+---
+packages:
+  - gcc
+  - gcc-c++
+  - python-virtualenv
+  - python-pip
+  - python-devel
+  - libffi-devel
+  - openssl-devel
+  - libyaml-devel
+  - sshpass
+  - git
+  - chrony            # ntp required
+
+ntp_service_name: chronyd

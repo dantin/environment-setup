@@ -1,0 +1,53 @@
+---
+- name: Load variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_os_family|lower }}-{{ ansible_distribution|lower }}.yml"
+        - "{{ ansible_os_family|lower }}-{{ ansible_distribution_major_version }}.yml"
+        - defaults.yml
+      paths:
+        -- ../common/vars
+
+- block:
+    - name: Install epel-release
+      package:
+        name: epel-release
+        update_cache: yes
+        state: present
+    - name: Upgrade all packages
+      yum:
+        name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        state: present
+  when: (ansible_os_family|lower == "redhat" and ansible_distribution_major_version|int == 7)
+
+- name: Install required packages
+  package:
+    name: "{{ item }}"
+    update_cache: yes
+    state: present
+  with_items: "{{ packages | join(',') }}"
+
+- name: Set hostname
+  hostname: name={{ inventory_hostname_short }}
+
+- name: Make sure the NTP service is started
+  service:
+    name: "{{ ntp_service_name }}"
+    state: started
+
+- name: Make sure the NTP service is enabled
+  service:
+    name: "{{ ntp_service_name }}"
+    enabled: yes
+  ignore_errors: true
+
+- name: Set LANG and LC_ALL
+  blockinfile:
+    path: /etc/environment
+    create: yes
+    mode: 0644
+    block: |
+        LANG=en_US.utf-8
+        LC_ALL=en_US.utf-8
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
