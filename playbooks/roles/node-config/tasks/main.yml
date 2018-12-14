@@ -1,0 +1,9 @@
+---
+
+- name: Create user directories
+  file: path={{ item }} state=directory mode=0755
+  with_items:
+    - "{{ documents_dir }}"
+    - "{{ code_dir }}"
+    - "{{ temp_dir }}"
+    - "{{ downloads_dir }}"

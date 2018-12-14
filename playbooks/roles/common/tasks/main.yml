@@ -28,6 +28,9 @@
     state: present
   with_items: "{{ packages | join(',') }}"
 
+- name: Install Ansible
+  include_tasks: ansible.yml
+
 - name: Set hostname
   hostname: name={{ inventory_hostname_short }}
 

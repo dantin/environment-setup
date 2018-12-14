@@ -1,5 +1,8 @@
 ---
 packages:
+  - chrony            # ntp required
+
+ansible_dep_packages:
   - gcc
   - gcc-c++
   - python-virtualenv
@@ -10,6 +13,5 @@ packages:
   - libyaml-devel
   - sshpass
   - git
-  - chrony            # ntp required
 
 ntp_service_name: chronyd
