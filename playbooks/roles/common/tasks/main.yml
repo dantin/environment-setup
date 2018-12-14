@@ -28,6 +28,9 @@
     state: present
   with_items: "{{ packages | join(',') }}"
 
+- name: Install Git
+  include_tasks: git.yml
+
 - name: Install Ansible
   include_tasks: ansible.yml
 

@@ -1,0 +1,12 @@
+---
+- name: Install Git dependency packages
+  package:
+    name: "{{ item }}"
+    update_cache: yes
+    state: present
+  with_items: "{{ git_dep_packages | join(',') }}"
+
+- name: Config Git global
+  shell: |
+    git config --global user.name dantin \
+    git config --global user.email chengjie.ding@gmail.com
