@@ -1,0 +1,7 @@
+---
+
+# default directories
+documents_dir: documents
+code_dir: documents/code
+temp_dir: tmp
+downloads_dir: downloads

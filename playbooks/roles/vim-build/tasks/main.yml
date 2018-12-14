@@ -1,0 +1,43 @@
+---
+
+- name: Ensure dependency packags installed
+  become: yes
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - ruby
+    - ruby-devel
+    - perl-devel
+    - perl-ExtUtils-Embed
+    - python-devel
+    - ncurses
+    - ncurses-devel
+    - lua
+    - lua-devel
+
+- name: Git clone Vim source code
+  git:
+    repo: 'https://github.com/vim/vim.git'
+    dest: vim
+
+- name: Compile
+  shell: |
+    ./configure --prefix=/usr/local    \
+    --enable-multibyte     \
+    --enable-pythoninterp  \
+    --enable-rubyinterp    \
+    --with-ruby-command=/usr/bin/ruby \
+    --with-features=huge   \
+    --enable-luainterp     \
+    --with-lua-prefix=/usr
+
+    make
+  args:
+    chdir: vim
+
+- name: Install compiled file
+  become: yes
+  shell: make install
+  args:
+    chdir: vim

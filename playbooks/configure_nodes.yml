@@ -1,0 +1,8 @@
+---
+
+- name: Configure node
+  hosts: develop
+  any_errors_fatal: true
+  roles:
+    - node-config
+  tags: node-config

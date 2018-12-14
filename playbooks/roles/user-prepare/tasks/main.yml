@@ -10,6 +10,32 @@
   with_file:
     - pubkey.pub
 
+- name: remove Vim package
+  become: yes
+  ignore_errors: yes
+  yum:
+    name: "{{ packages }}"
+    state: absent
+  vars:
+    packages:
+    - vim-X11
+    - vim-common
+    - vim-enhanced
+    - vim-filesystem
+    - vim-fugitive
+    - vim-go
+    - vim-gtk-syntax
+    - vim-halibut
+    - vim-jellybeans
+    - vim-toml
+    - vim-vimoutliner
+
+- name: Install required packages
+  package:
+    name: sudo
+    update_cache: yes
+    state: present
+
 - name: update sudoers file
   lineinfile:
     dest: /etc/sudoers
@@ -17,3 +43,5 @@
     line: '{{ username }} ALL=(ALL) NOPASSWD: ALL'
     regexp: '^{{ username }} .*'
     state: present
+
+
