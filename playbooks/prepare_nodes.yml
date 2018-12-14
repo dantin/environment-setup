@@ -1,0 +1,9 @@
+---
+
+- name: Apply the common role to the develop group
+  hosts: develop
+  any_errors_fatal: true
+  become: yes
+  roles:
+    - common
+  tags: common
