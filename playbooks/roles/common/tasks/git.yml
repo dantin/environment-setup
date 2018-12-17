@@ -9,4 +9,5 @@
 - name: Config Git global
   shell: |
     git config --global user.name dantin \
-    git config --global user.email chengjie.ding@gmail.com
+    git config --global user.email chengjie.ding@gmail.com \
+    git config --global core.editor vim

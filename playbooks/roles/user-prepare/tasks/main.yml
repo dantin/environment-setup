@@ -1,5 +1,5 @@
 ---
-- name: create user
+- name: create new user {{ username }}
   user: name={{ username }} shell=/bin/bash createhome=yes
 
 - name: set authorized key
@@ -30,7 +30,7 @@
     - vim-toml
     - vim-vimoutliner
 
-- name: Install required packages
+- name: Re-install sudo package
   package:
     name: sudo
     update_cache: yes
@@ -43,5 +43,3 @@
     line: '{{ username }} ALL=(ALL) NOPASSWD: ALL'
     regexp: '^{{ username }} .*'
     state: present
-
-
