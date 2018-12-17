@@ -1,0 +1,19 @@
+---
+- name: create user {{ username }}
+  user: name={{ username }} shell=/bin/bash createhome=yes
+
+- name: set authorized key
+  authorized_key:
+    user: "{{ username }}"
+    key: "{{ item }}"
+    state: present
+  with_file:
+    - pubkey.pub
+
+- name: update sudoers file
+  lineinfile:
+    dest: /etc/sudoers
+    insertafter: EOF
+    line: '{{ username }} ALL=(ALL) NOPASSWD: ALL'
+    regexp: '^{{ username }} .*'
+    state: present

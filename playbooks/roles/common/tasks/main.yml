@@ -9,18 +9,6 @@
       paths:
         -- ../common/vars
 
-- block:
-    - name: Install epel-release
-      package:
-        name: epel-release
-        update_cache: yes
-        state: present
-    - name: Upgrade all packages
-      yum:
-        name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-        state: present
-  when: (ansible_os_family|lower == "redhat" and ansible_distribution_major_version|int == 7)
-
 - name: Install required packages
   package:
     name: "{{ item }}"

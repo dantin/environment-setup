@@ -1,11 +1,39 @@
 ---
 
+- name: Remove existing Vim packages
+  become: yes
+  ignore_errors: yes
+  yum:
+    name: "{{ packages }}"
+    state: absent
+  vars:
+    packages:
+    - vim-X11
+    - vim-common
+    - vim-enhanced
+    - vim-filesystem
+    - vim-fugitive
+    - vim-go
+    - vim-gtk-syntax
+    - vim-halibut
+    - vim-jellybeans
+    - vim-toml
+    - vim-vimoutliner
+
+- name: Install required packages
+  package:
+    name: sudo
+    update_cache: yes
+    state: present
+
 - name: Ensure dependency packags installed
   become: yes
   yum:
     name: "{{ packages }}"
   vars:
     packages:
+    - gcc
+    - gcc-c++
     - ruby
     - ruby-devel
     - perl-devel
@@ -15,13 +43,14 @@
     - ncurses-devel
     - lua
     - lua-devel
+    - git
 
 - name: Git clone Vim source code
   git:
     repo: 'https://github.com/vim/vim.git'
-    dest: vim
+    dest: vim_source
 
-- name: Compile
+- name: Compile Vim source code
   shell: |
     ./configure --prefix=/usr/local    \
     --enable-multibyte     \
@@ -34,10 +63,10 @@
 
     make
   args:
-    chdir: vim
+    chdir: vim_source
 
-- name: Install compiled file
+- name: Install compiled Vim binary
   become: yes
   shell: make install
   args:
-    chdir: vim
+    chdir: vim_source
