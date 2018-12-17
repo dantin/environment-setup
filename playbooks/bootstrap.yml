@@ -1,0 +1,21 @@
+---
+
+- name: Preflight checks
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - preflight-checks
+
+- name: Update Base System
+  hosts: develop
+  any_errors_fatal: true
+  become: yes
+  roles:
+    - base
+
+- name: Build latest Vim from source
+  hosts: develop
+  any_errors_fatal: true
+  become: yes
+  roles:
+    - vim-build

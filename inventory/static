@@ -6,5 +6,5 @@
 ##
 ######################################################
 
-[ge-box]
-nuc ansible_host=10.189.155.75 ansible_user=dantin ansible_ssh_private_key_file="~/.ssh/id_rsa"
+[develop]
+devops ansible_host=101.132.42.119 ansible_user=dantin ansible_ssh_private_key_file="~/.ssh/id_rsa"

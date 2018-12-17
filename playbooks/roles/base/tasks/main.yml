@@ -1,0 +1,22 @@
+---
+- name: Load variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_os_family|lower }}-{{ ansible_distribution|lower }}.yml"
+        - "{{ ansible_os_family|lower }}-{{ ansible_distribution_major_version }}.yml"
+        - defaults.yml
+      paths:
+        -- ../base/vars
+
+- block:
+    - name: Install epel-release
+      package:
+        name: epel-release
+        update_cache: yes
+        state: present
+    - name: Upgrade all packages
+      yum:
+        name: "{{ os_repository }}"
+        state: present
+  when: (ansible_os_family|lower == "redhat" and ansible_distribution_major_version|int == 7)
