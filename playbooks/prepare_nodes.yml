@@ -7,10 +7,3 @@
   roles:
     - common
   tags: common
-
-- name: Install Vim editor from source
-  hosts: develop
-  any_errors_fatal: true
-  roles:
-    - vim-build
-  tags: vim-build
