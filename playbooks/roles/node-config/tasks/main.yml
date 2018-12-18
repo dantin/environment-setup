@@ -13,3 +13,6 @@
 
 - name: Config Vim
   include_tasks: vim.yml
+
+- name: Config Zsh
+  include_tasks: zsh.yml
