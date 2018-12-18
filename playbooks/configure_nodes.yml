@@ -1,8 +1,14 @@
 ---
 
-- name: Configure node
+- name: Preflight checks
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - preflight-checks
+
+- name: Configure nodes
   hosts: develop
   any_errors_fatal: true
   roles:
-    - zsh
-  tags: zsh
+    - node-config
+  tags: node-config

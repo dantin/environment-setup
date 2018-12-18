@@ -7,3 +7,6 @@
     - "{{ code_dir }}"
     - "{{ temp_dir }}"
     - "{{ downloads_dir }}"
+
+- name: Config Git
+  include_tasks: git.yml
