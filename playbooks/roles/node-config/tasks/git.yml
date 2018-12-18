@@ -8,3 +8,4 @@
     - { name: "user.name", value: "dantin" }
     - { name: "user.email", value: "chengjie.ding@gmail.com" }
     - { name: "core.editor", value: "vim" }
+    - { name: "push.default", value: "simple" }
