@@ -12,3 +12,9 @@ ansible_dep_packages:
   - openssl-devel
   - libyaml-devel
   - sshpass
+
+tmux_dep_packages:
+  - tmux
+
+zsh_dep_packages:
+  - zsh

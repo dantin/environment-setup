@@ -14,3 +14,9 @@
 
 - name: Install Ansible
   include_tasks: ansible.yml
+
+- name: Install Zsh
+  include_tasks: zsh.yml
+
+- name: Install Tmux
+  include_tasks: tmux.yml

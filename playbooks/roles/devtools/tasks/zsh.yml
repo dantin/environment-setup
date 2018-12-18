@@ -1,0 +1,7 @@
+---
+- name: Install dependency packages of Zsh
+  package:
+    name: "{{ item }}"
+    update_cache: yes
+    state: present
+  with_items: "{{ zsh_dep_packages | join(',') }}"

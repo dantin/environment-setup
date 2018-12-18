@@ -1,5 +1,5 @@
 ---
-- name: Install ansible dependency packages
+- name: Install dependency packages of Ansible
   package:
     name: "{{ item }}"
     update_cache: yes

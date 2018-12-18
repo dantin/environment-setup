@@ -1,5 +1,5 @@
 ---
-- name: Install Git dependency packages
+- name: Install dependency packages of Git
   package:
     name: "{{ item }}"
     update_cache: yes
