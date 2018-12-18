@@ -10,3 +10,6 @@
 
 - name: Config Git
   include_tasks: git.yml
+
+- name: Config Vim
+  include_tasks: vim.yml
