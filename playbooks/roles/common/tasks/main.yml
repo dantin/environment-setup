@@ -9,21 +9,15 @@
       paths:
         -- ../common/vars
 
+- name: Set hostname
+  hostname: name={{ inventory_hostname_short }}
+
 - name: Install required packages
   package:
     name: "{{ item }}"
     update_cache: yes
     state: present
   with_items: "{{ packages | join(',') }}"
-
-- name: Install Git
-  include_tasks: git.yml
-
-- name: Install Ansible
-  include_tasks: ansible.yml
-
-- name: Set hostname
-  hostname: name={{ inventory_hostname_short }}
 
 - name: Make sure the NTP service is started
   service:

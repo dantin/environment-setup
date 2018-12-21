@@ -1,0 +1,22 @@
+---
+- name: Load variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_os_family|lower }}-{{ ansible_distribution|lower }}.yml"
+        - "{{ ansible_os_family|lower }}-{{ ansible_distribution_major_version }}.yml"
+        - defaults.yml
+      paths:
+        -- ../devtools/vars
+
+- name: Install Git
+  include_tasks: git.yml
+
+- name: Install Ansible
+  include_tasks: ansible.yml
+
+- name: Install Zsh
+  include_tasks: zsh.yml
+
+- name: Install Tmux
+  include_tasks: tmux.yml

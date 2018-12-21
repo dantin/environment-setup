@@ -1,0 +1,12 @@
+---
+
+- name: Clone Vimrc configuration
+  git:
+    repo: 'git@github.com:dantin/vimrc.git'
+    dest: /home/{{ ansible_user }}/.vim_runtime
+
+- name: Upload the .vimrc file
+  template:
+    src: vimrc.j2
+    dest: /home/{{ ansible_user }}/.vimrc
+    mode: 0644

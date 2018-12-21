@@ -1,0 +1,7 @@
+---
+- name: Install dependency packages of Git
+  package:
+    name: "{{ item }}"
+    update_cache: yes
+    state: present
+  with_items: "{{ git_dep_packages | join(',') }}"

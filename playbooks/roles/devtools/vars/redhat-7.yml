@@ -1,0 +1,20 @@
+---
+git_dep_packages:
+  - git
+
+ansible_dep_packages:
+  - gcc
+  - gcc-c++
+  - python-virtualenv
+  - python-pip
+  - python-devel
+  - libffi-devel
+  - openssl-devel
+  - libyaml-devel
+  - sshpass
+
+tmux_dep_packages:
+  - tmux
+
+zsh_dep_packages:
+  - zsh
