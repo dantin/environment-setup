@@ -6,6 +6,16 @@ Ansible Playbooks that setup Linux Box automatically.
 
 Detail Tasks describe each playbook's job.
 
+### `local_prepare.sh`
+
+`local_prepare.sh` download third party software from Internet.
+
+```
+$ ./local_prepare.sh
+```
+
+Customized software: `vim`, `git`, `tmux`.
+
 ### `bootstrap.sh`
 
 `bootstrap.sh ` prepare a host, which contains tasks like build customized software, update system repository, etc.

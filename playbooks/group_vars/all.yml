@@ -1,0 +1,5 @@
+---
+
+# Local
+downloads_dir: "{{ playbook_dir }}/downloads"
+resources_dir: "{{ playbook_dir }}/resources"

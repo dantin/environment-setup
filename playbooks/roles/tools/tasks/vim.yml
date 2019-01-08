@@ -1,5 +1,16 @@
 ---
 
+- include_vars: file={{ playbook_dir }}/conf/binary_packages.yml
+
+- name: Set Vim distribution fact
+  set_fact:
+    vim_distribution: "{{ item.name }}-{{ item.version }}"
+  when: (item.name|lower == "vim")
+  with_items: "{{ third_party_packages }}"
+
+- name: Deploy Vim source code
+  copy: src="{{ resources_dir }}/bin/{{ vim_distribution }}.tar.gz" dest="{{ deploy_dir }}" mode=0644
+
 - name: Remove existing Vim packages
   ignore_errors: yes
   yum:
@@ -43,10 +54,11 @@
     - lua-devel
     - git
 
-- name: Git clone Vim source
-  git:
-    repo: 'https://github.com/vim/vim.git'
-    dest: vim_source
+- name: Unarchive Vim source code
+  shell: |
+    tar -zxf {{ deploy_dir }}/{{ vim_distribution }}.tar.gz
+  args:
+    warn: no
 
 - name: Compile Vim source code
   shell: |
@@ -61,9 +73,9 @@
 
     make
   args:
-    chdir: vim_source
+    chdir: "{{ vim_distribution }}"
 
 - name: Install compiled Vim binary
   shell: make install
   args:
-    chdir: vim_source
+    chdir: "{{ vim_distribution }}"
