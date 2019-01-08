@@ -1,0 +1,40 @@
+---
+
+- name: Create downloads directory
+  file: path="{{ item }}" state=directory mode=0755
+  with_items:
+    - "conf"
+    - "{{ downloads_dir }}"
+    - "{{ resources_dir }}"
+    - "{{ resources_dir }}/bin"
+
+- name: Create binary deployment packages.yml
+  template: src=binary_packages.yml.j2 dest={{ playbook_dir }}/conf/binary_packages.yml
+
+- include_vars: file={{ playbook_dir }}/conf/binary_packages.yml
+
+# preflight checks
+- name: Detect outbound network
+  shell: >
+    warn=no
+    curl -s --connect-timeout 10 www.baidu.com >/dev/null 2>&1; echo $?
+  changed_when: false
+  register: outbound_network_st
+
+- name: Set outbound network fact
+  set_fact: has_outbound_network={{ outbound_network_st.stdout.strip() == '0' }}
+
+- fail:
+    msg: "The Control Machine must have access to the Internet in order to download open-source binaries souce code."
+  when: not has_outbound_network
+
+- include_tasks: binary_deployment.yml
+
+- name: Copy open-source source code
+  shell: >
+    cp -v "{{ downloads_dir }}/{{ item.name }}-{{ item.version }}.tar.gz" "{{ resources_dir }}/bin"
+  with_items: "{{ third_party_packages }}"
+
+- name: Clean up downloads directory
+  shell: >
+    cd "{{ downloads_dir }}" && find . -mindepth 1 -maxdepth 1 -type f -exec rm -rf {} \;

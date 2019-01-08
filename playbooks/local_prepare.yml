@@ -1,0 +1,8 @@
+---
+
+- name: Local Preparation
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - local
