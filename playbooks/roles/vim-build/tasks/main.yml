@@ -1,7 +1,6 @@
 ---
 
 - name: Remove existing Vim packages
-  become: yes
   ignore_errors: yes
   yum:
     name: "{{ packages }}"
@@ -20,14 +19,13 @@
     - vim-toml
     - vim-vimoutliner
 
-- name: Install required packages
+- name: Install sudo package
   package:
     name: sudo
     update_cache: yes
     state: present
 
-- name: Ensure dependency packags installed
-  become: yes
+- name: Ensure dependency packages installed
   yum:
     name: "{{ packages }}"
   vars:
@@ -45,20 +43,20 @@
     - lua-devel
     - git
 
-- name: Git clone Vim source code
+- name: Git clone Vim source
   git:
     repo: 'https://github.com/vim/vim.git'
     dest: vim_source
 
 - name: Compile Vim source code
   shell: |
-    ./configure --prefix=/usr/local    \
-    --enable-multibyte     \
-    --enable-pythoninterp  \
-    --enable-rubyinterp    \
+    ./configure --prefix=/usr/local   \
+    --enable-multibyte                \
+    --enable-pythoninterp             \
+    --enable-rubyinterp               \
     --with-ruby-command=/usr/bin/ruby \
-    --with-features=huge   \
-    --enable-luainterp     \
+    --with-features=huge              \
+    --enable-luainterp                \
     --with-lua-prefix=/usr
 
     make
@@ -66,7 +64,6 @@
     chdir: vim_source
 
 - name: Install compiled Vim binary
-  become: yes
   shell: make install
   args:
     chdir: vim_source
