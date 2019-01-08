@@ -21,3 +21,15 @@ $ CLOUD_TO_USE="aliyun" ./bootstrap.sh -e 'ansible_user=root' -k
 ```
 $ CLOUD_TO_USE="aliyun" ./prepare_user.sh --extra-vars="username=dantin" -e 'ansible_user=root' -k
 ```
+
+### `prepare_nodes.sh`
+
+```
+$ CLOUD_TO_USE="aliyun" ./prepare_nodes.sh
+```
+
+### `configure_nodes.sh`
+
+```
+$ CLOUD_TO_USE="aliyun" ./configure_nodes.sh
+```
