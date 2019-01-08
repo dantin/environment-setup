@@ -14,21 +14,8 @@
 - name: Remove existing Vim packages
   ignore_errors: yes
   yum:
-    name: "{{ packages }}"
+    name: "{{ default_vim_packages }}"
     state: absent
-  vars:
-    packages:
-    - vim-X11
-    - vim-common
-    - vim-enhanced
-    - vim-filesystem
-    - vim-fugitive
-    - vim-go
-    - vim-gtk-syntax
-    - vim-halibut
-    - vim-jellybeans
-    - vim-toml
-    - vim-vimoutliner
 
 - name: Install sudo package
   package:
@@ -38,21 +25,7 @@
 
 - name: Ensure dependency packages installed
   yum:
-    name: "{{ packages }}"
-  vars:
-    packages:
-    - gcc
-    - gcc-c++
-    - ruby
-    - ruby-devel
-    - perl-devel
-    - perl-ExtUtils-Embed
-    - python-devel
-    - ncurses
-    - ncurses-devel
-    - lua
-    - lua-devel
-    - git
+    name: "{{ vim_dep_packages }}"
 
 - name: Unarchive Vim source code
   shell: |

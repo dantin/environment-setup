@@ -1,0 +1,27 @@
+---
+default_vim_packages:
+  - vim-X11
+  - vim-common
+  - vim-enhanced
+  - vim-filesystem
+  - vim-fugitive
+  - vim-go
+  - vim-gtk-syntax
+  - vim-halibut
+  - vim-jellybeans
+  - vim-toml
+  - vim-vimoutliner
+
+vim_dep_packages:
+  - gcc
+  - gcc-c++
+  - ruby
+  - ruby-devel
+  - perl-devel
+  - perl-ExtUtils-Embed
+  - python-devel
+  - ncurses
+  - ncurses-devel
+  - lua
+  - lua-devel
+  - git
