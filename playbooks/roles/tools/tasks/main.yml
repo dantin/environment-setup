@@ -1,0 +1,4 @@
+---
+
+- name: Build Vim from source
+  include_tasks: "vim.yml"
