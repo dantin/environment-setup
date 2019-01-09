@@ -33,7 +33,9 @@
 - name: Copy open-source source code
   shell: >
     cp -v "{{ downloads_dir }}/{{ item.name }}-{{ item.version }}.tar.gz" "{{ resources_dir }}/bin"
-  with_items: "{{ third_party_packages }}"
+  with_items:
+    - "{{ third_party_code }}"
+    - "{{ third_party_binary }}"
 
 - name: Clean up downloads directory
   shell: >
