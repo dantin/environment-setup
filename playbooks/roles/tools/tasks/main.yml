@@ -13,5 +13,8 @@
 - name: Build Git from source
   include_tasks: "git.yml"
 
+- name: Build Tmux from source
+  include_tasks: "tmux.yml"
+
 - name: Build Vim from source
   include_tasks: "vim.yml"

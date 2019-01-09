@@ -1,4 +1,7 @@
 ---
+default_tmux_packages:
+  - tmux
+
 default_git_packages:
   - git-all
   - git
@@ -15,6 +18,12 @@ default_vim_packages:
   - vim-jellybeans
   - vim-toml
   - vim-vimoutliner
+
+tmux_dep_packages:
+  - ncurses
+  - ncurses-devel
+  - glibc-static
+  - libevent-devel
 
 git_dep_packages:
   - dh-autoreconf
@@ -33,8 +42,8 @@ vim_dep_packages:
   - perl-devel
   - perl-ExtUtils-Embed
   - python-devel
-  - ncurses
-  - ncurses-devel
   - lua
   - lua-devel
+    # ncurses
+    # ncurses-devel
     # git
