@@ -6,7 +6,7 @@
   set_fact:
     vim_distribution: "{{ item.name }}-{{ item.version }}"
   when: (item.name|lower == "vim")
-  with_items: "{{ third_party_packages }}"
+  with_items: "{{ third_party_code }}"
 
 - name: Deploy Vim source code
   copy: src="{{ resources_dir }}/bin/{{ vim_distribution }}.tar.gz" dest="{{ deploy_dir }}" mode=0644
