@@ -1,4 +1,8 @@
 ---
+default_git_packages:
+  - git-all
+  - git
+
 default_vim_packages:
   - vim-X11
   - vim-common
@@ -12,6 +16,15 @@ default_vim_packages:
   - vim-toml
   - vim-vimoutliner
 
+git_dep_packages:
+  - dh-autoreconf
+  - curl-devel
+  - expat-devel
+  - gettext-devel
+  - openssl-devel
+  - perl-devel
+  - zlib-devel
+
 vim_dep_packages:
   - gcc
   - gcc-c++
@@ -24,4 +37,4 @@ vim_dep_packages:
   - ncurses-devel
   - lua
   - lua-devel
-  - git
+    # git
