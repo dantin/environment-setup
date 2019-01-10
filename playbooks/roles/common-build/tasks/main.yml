@@ -1,6 +1,6 @@
 ---
 
-- name: Deploy source code
+- name: Deploy {{ target }} source code
   copy: src="{{ resources_dir }}/bin/{{ target }}.tar.gz" dest="{{ deploy_dir }}" mode=0644
 
 - name: Remove existing packages
@@ -13,25 +13,29 @@
   yum:
     name: "{{ target_dependency }}"
 
-- name: Unarchive source code
+- name: Unarchive {{ target }} source code
   command: "tar -zxf {{ deploy_dir }}/{{ target }}.tar.gz"
   args:
     warn: no
 
-- name: Compile source code
-  command: "{{ compile_command }}"
+- name: Compile {{ target }} source code
+  shell: >
+    {{ compile_command }}
   args:
     chdir: "{{ target }}"
 
-- name: Install compiled binary
-  shell: make install
+- name: Install {{ target }} compiled binary
+  shell: >
+    {{ install_command }}
   args:
     chdir: "{{ target }}"
 
 - name: Clean up temp files
   file: 
-    path: "{{ item }}"
+    path: "{{ tmp_path }}"
     state: absent
+  loop_control:
+    loop_var: tmp_path
   with_items:
     - "{{ target }}"
     - "{{ target }}.tar.gz"

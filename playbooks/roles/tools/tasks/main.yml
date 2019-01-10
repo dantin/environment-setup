@@ -10,11 +10,22 @@
       paths:
         -- ../tools/vars
 
-- name: Build Git from source
-  include_tasks: "git.yml"
+- include_vars: file={{ playbook_dir }}/conf/binary_packages.yml
 
-- name: Build Tmux from source
-  include_tasks: "tmux.yml"
+- name: Build binary from source
+  include_role:
+    name: common-build
+  vars:
+    target: "{{ item.name|lower }}-{{ item.version }}"
+    default_target: "{{ package_in_source[item.name]['default_package'] }}"
+    target_dependency: "{{ package_in_source[item.name]['build_dependency'] }}"
+    compile_command: "{{- item.compile_cmd }}"
+    install_command: "{{ item.install_cmd }}"
+  with_items: "{{ third_party_code }}"
 
-- name: Build Vim from source
-  include_tasks: "vim.yml"
+# reinstall Vim may remove `sudo` package, here we make sure it is installed.
+- name: Install sudo package
+  package:
+    name: sudo
+    update_cache: yes
+    state: present
