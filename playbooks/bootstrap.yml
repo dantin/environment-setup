@@ -13,7 +13,7 @@
   roles:
     - base
 
-- name: Build third-party software from source
+- name: Install third-party software from source
   hosts: develop
   any_errors_fatal: true
   become: yes
