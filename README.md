@@ -4,27 +4,41 @@ Ansible Playbooks that setup Linux Box automatically.
 
 ## Playbooks
 
-Detail Tasks describe each playbook's job.
+The following describes detail jobs of each playbook.
 
-### `local_prepare.sh`
+### Download Software
 
-`local_prepare.sh` download third party software from Internet.
+The script `local_prepare.sh` support downloading third party open source code & software from Internet.
 
 ```
 $ ./local_prepare.sh
 ```
 
-Customized software: `vim`, `git`, `tmux`.
+The downloaded software:
 
-### `bootstrap.sh`
+- Source Code
+  - vim
+  - git
+  - tmux
+- Binary
+  - golang
 
-`bootstrap.sh ` prepare a host, which contains tasks like build customized software, update system repository, etc.
+__NOTE__:
 
-As some work need `root` privilege, it should be run as `root` user.
+> You need make sure connection to Internet is OK before trigger this script.
+> If you are under the GFW, please also make sure you can bypass it.
+
+### Bootstrap
+
+Bootstrap install software and do the basic configuration on target machine, the script `bootstrap.sh` implements it.
+
+You need `root` privilege to do some task, so please make sure to run it as `root` user.
 
 ```
 $ CLOUD_TO_USE="aliyun" ./bootstrap.sh -e 'ansible_user=root' -k
 ```
+
+`bootstrap.sh ` prepare a host, which contains tasks like build customized software, update system repository, etc.
 
 ### `prepare_user.sh`
 
