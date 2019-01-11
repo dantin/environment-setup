@@ -6,31 +6,20 @@ Ansible Playbooks that setup Linux Box automatically.
 
 The following describes detail jobs of each playbook.
 
-### Download Software
+### Local Prepare
 
-The script `local_prepare.sh` support downloading third party open source code & software from Internet.
+The script `local_prepare.sh` downloads third party code & binary from Internet.
 
 ```
 $ ./local_prepare.sh
 ```
 
-The downloaded software:
-
-- Source Code
-  - vim
-  - git
-  - tmux
-- Binary
-  - golang
-
-__NOTE__:
-
-> You need make sure connection to Internet is OK before trigger this script.
-> If you are under the GFW, please also make sure you can bypass it.
+> Please make sure the connection to the Internet is OK before running the script.
+> If you are under GFW, please also make sure you have solution to bypass it.
 
 ### Bootstrap
 
-Bootstrap install software and do the basic configuration on target machine, the script `bootstrap.sh` implements it.
+Bootstrap installs software and do the basic configuration, which is implemented by the script `bootstrap.sh`.
 
 You need `root` privilege to do some task, so please make sure to run it as `root` user.
 
@@ -38,9 +27,9 @@ You need `root` privilege to do some task, so please make sure to run it as `roo
 $ CLOUD_TO_USE="aliyun" ./bootstrap.sh -e 'ansible_user=root' -k
 ```
 
-`bootstrap.sh ` prepare a host, which contains tasks like build customized software, update system repository, etc.
+### Prepare User Account
 
-### `prepare_user.sh`
+TBD
 
 ```
 $ CLOUD_TO_USE="aliyun" ./prepare_user.sh --extra-vars="username=dantin" -e 'ansible_user=root' -k
@@ -48,11 +37,15 @@ $ CLOUD_TO_USE="aliyun" ./prepare_user.sh --extra-vars="username=dantin" -e 'ans
 
 ### `prepare_nodes.sh`
 
+TBD
+
 ```
 $ CLOUD_TO_USE="aliyun" ./prepare_nodes.sh
 ```
 
 ### `configure_nodes.sh`
+
+TBD
 
 ```
 $ CLOUD_TO_USE="aliyun" ./configure_nodes.sh

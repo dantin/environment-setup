@@ -10,16 +10,17 @@
         -- ../base/vars
 
 - block:
-    - name: Install epel-release
+    - name: Enable EPEL (Extra Package for Enterprise Linux) repository
       package:
         name: epel-release
         update_cache: yes
         state: present
 
-    - name: Upgrade all packages
+    - name: Enable extra EPEL (Extra Package for Enterprise Linux) repository
       yum:
-        name: "{{ os_repository }}"
+        name: "{{ extra_os_repository }}"
         state: present
+
   when: (ansible_os_family|lower == "redhat" and ansible_distribution_major_version|int == 7)
 
 - name: Install base packages
