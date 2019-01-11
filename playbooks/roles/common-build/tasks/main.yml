@@ -9,12 +9,12 @@
   yum:
     name: "{{ default_target }}"
     state: absent
-  when: source_code.changed
+  when: source_code is changed
 
 - name: Ensure dependency packages installed
   yum:
     name: "{{ target_dependency }}"
-  when: source_code.changed
+  when: source_code is changed
 
 - name: Unpacking {{ target }} source code
   command: "tar -zxf {{ deploy_dir }}/{{ target }}.tar.gz"
