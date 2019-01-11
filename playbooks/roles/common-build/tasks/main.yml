@@ -1,0 +1,41 @@
+---
+
+- name: Deploy {{ target }} source code
+  copy: src="{{ resources_dir }}/bin/{{ target }}.tar.gz" dest="{{ deploy_dir }}" mode=0644
+
+- name: Remove existing packages
+  ignore_errors: yes
+  yum:
+    name: "{{ default_target }}"
+    state: absent
+
+- name: Ensure dependency packages installed
+  yum:
+    name: "{{ target_dependency }}"
+
+- name: Unarchive {{ target }} source code
+  command: "tar -zxf {{ deploy_dir }}/{{ target }}.tar.gz"
+  args:
+    warn: no
+
+- name: Compile {{ target }} source code
+  shell: >
+    {{ compile_command }}
+  args:
+    chdir: "{{ target }}"
+
+- name: Install {{ target }} compiled binary
+  shell: >
+    {{ install_command }}
+  args:
+    chdir: "{{ target }}"
+
+- name: Clean up temp files
+  file: 
+    path: "{{ tmp_path }}"
+    state: absent
+  loop_control:
+    loop_var: tmp_path
+  with_items:
+    - "{{ target }}"
+    - "{{ target }}.tar.gz"

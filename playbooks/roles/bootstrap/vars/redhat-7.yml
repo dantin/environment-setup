@@ -1,0 +1,66 @@
+---
+
+package_in_source:
+  tmux:
+    default_package:
+      - tmux
+    build_dependency:
+      - ncurses
+      - ncurses-devel
+      - glibc-static
+      - libevent-devel
+  git:
+    default_package:
+      - git-all
+      - git
+    build_dependency:
+      - dh-autoreconf
+      - curl-devel
+      - expat-devel
+      - gettext-devel
+      - openssl-devel
+      - perl-devel
+      - zlib-devel
+  vim:
+    default_package:
+      - vim-X11
+      - vim-common
+      - vim-enhanced
+      - vim-filesystem
+      - vim-fugitive
+      - vim-go
+      - vim-gtk-syntax
+      - vim-halibut
+      - vim-jellybeans
+      - vim-toml
+      - vim-vimoutliner
+    build_dependency:
+      - gcc
+      - gcc-c++
+      - ruby
+      - ruby-devel
+      - perl-devel
+      - perl-ExtUtils-Embed
+      - python-devel
+      - lua
+      - lua-devel
+        # ncurses
+        # ncurses-devel
+        # git
+
+package_in_repo:
+  - zsh
+
+devlepment_tool:
+  - ansible:
+      name: Ansible
+      package:
+        - gcc
+        - gcc-c++
+        - python-virtualenv
+        - python-pip
+        - python-devel
+        - libffi-devel
+        - openssl-devel
+        - libyaml-devel
+        - sshpass

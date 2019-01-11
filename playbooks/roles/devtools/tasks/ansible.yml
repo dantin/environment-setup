@@ -1,7 +1,0 @@
----
-- name: Install dependency packages of Ansible
-  package:
-    name: "{{ item }}"
-    update_cache: yes
-    state: present
-  with_items: "{{ ansible_dep_packages | join(',') }}"

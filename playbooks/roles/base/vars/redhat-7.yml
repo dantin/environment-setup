@@ -1,3 +1,8 @@
 ---
 
-os_repository: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+extra_os_repository: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+base_package:
+  - chrony            # ntp required
+
+ntp_service_name: chronyd
