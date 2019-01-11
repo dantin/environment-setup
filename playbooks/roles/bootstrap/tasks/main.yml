@@ -14,7 +14,7 @@
 
 - name: Install {{ package_in_repo | join(',') }} from repository
   package:
-    name: "{{ item.name }}"
+    name: "{{ item }}"
     update_cache: yes
     state: present
   with_items: "{{ package_in_repo | join(',') }}"
