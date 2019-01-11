@@ -1,7 +1,0 @@
----
-- name: Install dependency packages of Tmux.
-  package:
-    name: "{{ item }}"
-    update_cache: yes
-    state: present
-  with_items: "{{ tmux_dep_packages | join(',') }}"

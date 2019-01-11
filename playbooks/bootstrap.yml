@@ -6,16 +6,16 @@
   roles:
     - preflight-checks
 
-- name: Update Base System
+- name: Prepare base system
   hosts: develop
   any_errors_fatal: true
   become: yes
   roles:
     - base
 
-- name: Install third-party software from source
+- name: Install common softwares
   hosts: develop
   any_errors_fatal: true
   become: yes
   roles:
-    - tools
+    - bootstrap

@@ -8,9 +8,16 @@
         - "{{ ansible_os_family|lower }}-{{ ansible_distribution_major_version }}.yml"
         - defaults.yml
       paths:
-        -- ../tools/vars
+        -- ../bootstrap/vars
 
 - include_vars: file={{ playbook_dir }}/conf/binary_packages.yml
+
+- name: Install {{ package_in_repo | join(',') }} from repository
+  package:
+    name: "{{ item.name }}"
+    update_cache: yes
+    state: present
+  with_items: "{{ package_in_repo | join(',') }}"
 
 - name: Build binary from source
   include_role:
@@ -29,3 +36,6 @@
     name: sudo
     update_cache: yes
     state: present
+
+- name: Setup basic system
+  include_tasks: "setup.yml"

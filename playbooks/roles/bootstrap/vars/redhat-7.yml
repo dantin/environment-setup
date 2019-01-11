@@ -47,3 +47,20 @@ package_in_source:
         # ncurses
         # ncurses-devel
         # git
+
+package_in_repo:
+  - zsh
+
+devlepment_tool:
+  - ansible:
+      name: Ansible
+      package:
+        - gcc
+        - gcc-c++
+        - python-virtualenv
+        - python-pip
+        - python-devel
+        - libffi-devel
+        - openssl-devel
+        - libyaml-devel
+        - sshpass
