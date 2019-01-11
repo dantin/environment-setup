@@ -6,7 +6,7 @@ Ansible Playbooks that setup Linux Box automatically.
 
 The following sections summarize jobs of each playbook.
 
-__TLDR__: Fefer to [details](./docs/detail.md) if you want to know more.
+__TLDR__: Refer to [details](./docs/detail.md), if you want more.
 
 ### Local Prepare
 

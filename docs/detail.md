@@ -1,4 +1,4 @@
-## Playbooks
+## Detail
 
 This documents discribes detail tasks of each Ansible Playbook.
 
