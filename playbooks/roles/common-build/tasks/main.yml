@@ -39,7 +39,7 @@
   when: source_code_compiled is changed
   register: source_code_installed
 
-- name: Clean up temp files
+- name: Clean up {{ target }} temp files
   file: 
     path: "{{ tmp_path }}"
     state: absent
