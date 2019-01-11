@@ -7,7 +7,7 @@
         - "{{ ansible_os_family|lower }}-{{ ansible_distribution_major_version }}.yml"
         - defaults.yml
       paths:
-        -- ../base/vars
+        -- vars
 
 - block:
     - name: Enable EPEL (Extra Package for Enterprise Linux) repository

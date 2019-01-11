@@ -8,7 +8,7 @@
         - "{{ ansible_os_family|lower }}-{{ ansible_distribution_major_version }}.yml"
         - defaults.yml
       paths:
-        -- ../bootstrap/vars
+        -- vars
 
 - include_vars: file={{ playbook_dir }}/conf/binary_packages.yml
 
