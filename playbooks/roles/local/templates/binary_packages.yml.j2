@@ -35,6 +35,15 @@ third_party_code:
     install_cmd:
       make install
 
+  - name: python
+    version: 3.7.2
+    url: https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz
+    compile_cmd:
+      ./configure --enable-optimizations;
+      make -j8 build_all
+    install_cmd:
+      make -j8 altinstall
+
 third_party_binary:
   - name: golang
     version: 1.11.4
