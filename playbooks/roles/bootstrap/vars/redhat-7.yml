@@ -21,6 +21,13 @@ package_in_source:
       - openssl-devel
       - perl-devel
       - zlib-devel
+  cmake:
+    default_package:
+      - cmake
+    build_dependency:
+  python:
+    default_package:
+    build_dependency:
   vim:
     default_package:
       - vim-X11
