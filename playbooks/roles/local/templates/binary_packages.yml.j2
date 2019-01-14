@@ -5,7 +5,7 @@ third_party_code:
     version: 2.8
     url: https://github.com/tmux/tmux/releases/download/2.8/tmux-2.8.tar.gz
     compile_cmd:
-      ./configure;
+      ./configure &&
       make
     install_cmd:
       make install
@@ -14,8 +14,18 @@ third_party_code:
     version: 2.20.1
     url: https://github.com/git/git/archive/v2.20.1.tar.gz
     compile_cmd:
-      ./configure --prefix=/usr;
+      make configure &&
+      ./configure --prefix=/usr &&
       make all
+    install_cmd:
+      make install
+
+  - name: cmake
+    version: 3.13.2
+    url: https://github.com/Kitware/CMake/releases/download/v3.13.2/cmake-3.13.2.tar.gz
+    compile_cmd:
+      ./bootstrap &&
+      make
     install_cmd:
       make install
 
@@ -24,18 +34,38 @@ third_party_code:
     url: https://github.com/vim/vim/archive/v8.1.0702.tar.gz
     compile_cmd:
       ./configure --prefix=/usr/local
+      --with-features=huge
+      --enable-cscope
       --enable-multibyte
+      --enable-perlinterp
       --enable-pythoninterp
+      --with-python-command=python
+      --enable-python3interp
+      --with-python3-command=python3.7
       --enable-rubyinterp
       --with-ruby-command=/usr/bin/ruby
-      --with-features=huge
       --enable-luainterp
-      --with-lua-prefix=/usr;
+      --with-lua-prefix=/usr
+      --with-compiledby="David Ding" &&
       make
     install_cmd:
       make install
 
+  - name: Python
+    version: 3.7.2
+    url: https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz
+    compile_cmd:
+      ./configure --enable-optimizations
+      --with-ssl &&
+      make -j8 build_all
+    install_cmd:
+      make -j8 altinstall &&
+      cp libpython3.7* /usr/lib64 &&
+      ldconfig
+
+
 third_party_binary:
   - name: golang
     version: 1.11.4
-    url: https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
+    url: https://studygolang.com/dl/golang/go1.11.linux-amd64.tar.gz
+    # https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz

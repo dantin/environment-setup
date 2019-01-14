@@ -23,9 +23,9 @@
   include_role:
     name: common-build
   vars:
-    target: "{{ item.name|lower }}-{{ item.version }}"
-    default_target: "{{ package_in_source[item.name]['default_package'] }}"
-    target_dependency: "{{ package_in_source[item.name]['build_dependency'] }}"
+    target: "{{ item.name }}-{{ item.version }}"
+    default_target: "{{ package_in_source[item.name|lower]['default_package'] | default([]) }}"
+    target_dependency: "{{ package_in_source[item.name|lower]['build_dependency'] | default([]) }}"
     compile_command: "{{- item.compile_cmd }}"
     install_command: "{{ item.install_cmd }}"
   with_items: "{{ third_party_code }}"

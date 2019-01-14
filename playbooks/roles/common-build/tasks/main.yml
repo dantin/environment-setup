@@ -9,12 +9,12 @@
   yum:
     name: "{{ default_target }}"
     state: absent
-  when: source_code.changed
+  when: source_code is changed and default_target|length > 0
 
 - name: Ensure dependency packages installed
   yum:
     name: "{{ target_dependency }}"
-  when: source_code.changed
+  when: source_code is changed and target_dependency|length > 0
 
 - name: Unpacking {{ target }} source code
   command: "tar -zxf {{ deploy_dir }}/{{ target }}.tar.gz"
@@ -39,7 +39,7 @@
   when: source_code_compiled is changed
   register: source_code_installed
 
-- name: Clean up temp files
+- name: Clean up {{ target }} temp files
   file: 
     path: "{{ tmp_path }}"
     state: absent
