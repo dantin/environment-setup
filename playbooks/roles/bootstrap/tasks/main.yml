@@ -37,5 +37,8 @@
     update_cache: yes
     state: present
 
+- name: Install docker engine
+  include_tasks: "docker-engine.yml"
+
 - name: Setup basic system
   include_tasks: "setup.yml"
