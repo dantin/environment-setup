@@ -7,4 +7,4 @@
 ######################################################
 
 [develop]
-ambari-console ansible_host=101.132.42.119 ansible_user=dantin ansible_ssh_private_key_file="~/.ssh/id_rsa"
+dev-box ansible_host=47.102.97.77 ansible_user=dantin ansible_ssh_private_key_file="~/.ssh/id_rsa"
