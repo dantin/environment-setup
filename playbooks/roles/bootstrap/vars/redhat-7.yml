@@ -27,9 +27,12 @@ package_in_source:
     default_package:
       - cmake
     build_dependency:
+      - gcc
+      - gcc-c++
   python:
     default_package:
     build_dependency:
+      - libffi-devel
   vim:
     default_package:
       - vim-X11
