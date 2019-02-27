@@ -3,10 +3,10 @@
 - name: Create user directories
   file: path={{ item }} state=directory mode=0755
   with_items:
-    - "{{ documents_dir }}"
-    - "{{ code_dir }}"
-    - "{{ temp_dir }}"
-    - "{{ downloads_dir }}"
+    - "/home/{{ ansible_user }}/{{ documents_dir }}"
+    - "/home/{{ ansible_user }}/{{ code_dir }}"
+    - "/home/{{ ansible_user }}/{{ temp_dir }}"
+    - "/home/{{ ansible_user }}/{{ downloads_dir }}"
 
 - name: Config Git
   include_tasks: git.yml
