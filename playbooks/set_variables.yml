@@ -4,17 +4,54 @@
   connection: local
   gather_facts: False
   tasks:
-    - name: Add nodes to the develop-box group and groups representing the host_groups
+    - name: Add nodes to the develop-cluster group and groups representing the host_groups
       include_tasks: "clouds/add_nodes_{{ cloud_name }}.yml"
       with_items: "{{ nodes|default(omit) }}"
 
-    - name: Initialize the develop_box list
+    - name: Initialize the develop_groups list
       set_fact:
-        develop_box: []
+        develop_groups: []
 
     - block:
-        - name: Populate the develop_box list (dynamic blueprint)
+        - name: Populate the develop_groups list (dynamic blueprint)
           set_fact:
             develop_groups: "{{ develop_groups }} + [ '{{ item.host_group }}' ]"
           when: groups[item.host_group] is defined and groups[item.host_group]|length > 0
           with_items: "{{ blueprint_dynamic }}"
+
+        - name: Fail if the develop_groups list is empty
+          fail:
+            msg: "The develop_groups list is empty. There is no Ansible inventory group corresponding with the name of the blueprint's host_group."
+          when: develop_groups|length == 0
+
+        - name: Fail if there is no Ansible inventory group matching the blueprint's host_groups
+          fail:
+            msg: "The {{ item }} hosts_group is defined in the blueprint but there is no matching Ansible inventory group called {{ item }} or there are no hosts in this group."
+          when: groups[item] is not defined or groups[item]|length == 0
+          with_items: "{{ develop_groups }}"
+
+
+- name: Create the Ansible helper variables for all nodes
+  hosts: develop-cluster
+  gather_facts: False
+  tasks:
+    - block:
+        - name: Check if /usr/bin/python exists
+          raw: bash -c "test -e /usr/bin/python && ehco -n exists || echo -n"
+          register: default_python2_path
+
+        - name: Check if /usr/bin/python3 exists
+          raw: bash -c "test -e /usr/bin/python3 && ehco -n exists || echo -n"
+          register: default_python3_path
+          when: default_python2_path.stdout == ""
+
+        - name: Fail if no standard python path could be found
+          fail:
+            msg: "Python could not be found at /usr/bin/python or /usr/bin/python3. If using a custom python path, set the 'ansible_python_interpreter' inventory variable to the valid path for your environment."
+          when: default_python2_path.stdout == "" and default_python3_path.stdout != "exists"
+
+        - name: Set the ansible_python_interpreter to /usr/bin/python3
+          set_fact:
+            ansible_python_interpreter: "/usr/bin/python3"
+          when: default_python3_path.stdout is defined and default_python3_path.stdout == "exists"
+      when: ansible_python_interpreter is not defined

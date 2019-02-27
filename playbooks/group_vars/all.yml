@@ -1,6 +1,8 @@
 ---
 
-# Local
+##############################
+## local path configuration ##
+##############################
 downloads_dir: "{{ playbook_dir }}/downloads"
 resources_dir: "{{ playbook_dir }}/resources"
 
@@ -9,8 +11,8 @@ resources_dir: "{{ playbook_dir }}/resources"
 #############################
 
 blueprint_dynamic:
-  - host_group: "develop-box"
-    services:
+  - host_group: "develop-groups"
+    components:
       - CMAKE
       - GIT
       - TMUX

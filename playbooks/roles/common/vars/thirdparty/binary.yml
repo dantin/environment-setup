@@ -1,0 +1,7 @@
+---
+
+third_party_binary:
+  - name: golang
+    version: 1.11.4
+    #url: https://studygolang.com/dl/golang/go1.11.linux-amd64.tar.gz
+    https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
