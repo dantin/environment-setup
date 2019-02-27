@@ -55,8 +55,7 @@ third_party_code:
     version: 3.7.2
     url: https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz
     compile_cmd:
-      ./configure --enable-optimizations
-      --with-ssl &&
+      ./configure --enable-optimizations --enable-shared &&
       make -j8 build_all
     install_cmd:
       make -j8 altinstall &&
