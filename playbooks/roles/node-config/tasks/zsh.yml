@@ -10,4 +10,4 @@
 
 - name: Change default shell
   become: yes
-  raw: chsh -s `which zsh` {{ ansible_user }}
+  raw: chsh -s /usr/bin/zsh {{ ansible_user }}
