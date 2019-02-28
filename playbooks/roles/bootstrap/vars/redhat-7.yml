@@ -33,6 +33,7 @@ package_in_source:
     default_package:
     build_dependency:
       - libffi-devel
+      - readline-devel
   vim:
     default_package:
       - vim-X11
