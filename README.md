@@ -1,5 +1,7 @@
 # Environment Setup
 
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+
 This `environment-setup` is a project which is aimed to setup a Linux Box automatically.
 
 This repository contains:
