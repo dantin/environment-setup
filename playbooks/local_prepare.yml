@@ -1,4 +1,6 @@
 ---
+- import_playbook: "set_variables.yml"
+  tags: always
 
 - name: Local Preparation
   hosts: localhost

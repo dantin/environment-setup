@@ -6,5 +6,5 @@
 ##
 ######################################################
 
-[develop]
-dev-box ansible_host=47.102.97.77 ansible_user=dantin ansible_ssh_private_key_file="~/.ssh/id_rsa"
+[develop-groups]
+ecs ansible_host=47.102.97.77 ansible_user=dantin ansible_ssh_private_key_file="~/.ssh/id_rsa"

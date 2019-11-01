@@ -1,18 +1,5 @@
 ---
 
-- name: Create downloads directory
-  file: path="{{ item }}" state=directory mode=0755
-  with_items:
-    - "conf"
-    - "{{ downloads_dir }}"
-    - "{{ resources_dir }}"
-    - "{{ resources_dir }}/bin"
-
-- name: Create binary deployment packages.yml
-  template: src=binary_packages.yml.j2 dest={{ playbook_dir }}/conf/binary_packages.yml
-
-- include_vars: file={{ playbook_dir }}/conf/binary_packages.yml
-
 # preflight checks
 - name: Detect outbound network
   shell: >
@@ -28,14 +15,53 @@
     msg: "The Control Machine must have access to the Internet in order to download open-source binaries souce code."
   when: not has_outbound_network
 
-- include_tasks: binary_deployment.yml
+- name: Create downloads directory
+  file: path="{{ item }}" state=directory mode=0755
+  with_items:
+    - "conf"
+    - "{{ downloads_dir }}"
+    - "{{ resources_dir }}"
+    - "{{ resources_dir }}/bin"
+
+- name: Load third party source code variables
+  include_vars:
+    dir: /roles/common/vars/thirdparty
+    files_matching: source.yml
+
+- name: Download third-party code
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ downloads_dir }}/{{ item.name }}-{{ item.version }}.tar.gz"
+    checksum: "{{ item.checksum | default(omit) }}"
+    validate_certs: no
+  register: get_url_result
+  until: "'OK' in get_url_result.msg or 'file already exists' in get_url_result.msg"
+  retries: "{{ retry_count }}"
+  delay: "{{ retry_stagger | random + 3 }}"
+  with_items: "{{ third_party_code }}"
+  when:
+    - has_outbound_network
+
+      #- name: Download third-party binary
+      #  get_url:
+      #    url: "{{ item.url }}"
+      #    dest: "{{ downloads_dir }}/{{ item.name }}-{{ item.version }}.tar.gz"
+      #    checksum: "{{ item.checksum | default(omit) }}"
+      #    validate_certs: no
+      #  register: get_url_result
+      #  until: "'OK' in get_url_result.msg or 'file already exists' in get_url_result.msg"
+      #  retries: "{{ retry_count }}"
+      #  delay: "{{ retry_stagger | random + 3 }}"
+      #  with_items: "{{ third_party_binary }}"
+      #  when:
+      #    - has_outbound_network
 
 - name: Copy open-source source code
   shell: >
     cp -v "{{ downloads_dir }}/{{ item.name }}-{{ item.version }}.tar.gz" "{{ resources_dir }}/bin"
   with_items:
     - "{{ third_party_code }}"
-    - "{{ third_party_binary }}"
+      #- "{{ third_party_binary }}"
 
 - name: Clean up downloads directory
   shell: >
