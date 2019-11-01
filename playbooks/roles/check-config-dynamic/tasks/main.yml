@@ -1,0 +1,5 @@
+---
+
+- name: Config variables (default)
+  set_fact:
+    firewalld_ports: []

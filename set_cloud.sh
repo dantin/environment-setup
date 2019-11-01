@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ -z "$CLOUD_TO_USE" ]; then
-    echo "CLOUD_TO_USE environment variable must be set to one of the following: aliyun, static"
+    echo "CLOUD_TO_USE environment variable must be set to one of the following: aliyun, static, ucloud"
     exit 1
 fi
 
@@ -9,13 +9,17 @@ cloud_to_use=$(echo "$CLOUD_TO_USE" | tr '[:upper:]' '[:lower:]')
 case $cloud_to_use in
     aliyun)
         cloud_to_use=aliyun
-        message="Cloud to be used is Aliyun."
+        message="Cloud to be used is Aliyun"
+        ;;
+    ucloud)
+        cloud_to_use=ucloud
+        message="Cloud to be used is UCloud"
         ;;
     static)
-        message="The static inventory will be used."
+        message="The static inventory will be used"
         ;;
     *)
-        message="CLOUD_TO_USE environment variable was set to \"$CLOUD_TO_USE\" but must be set to one of the following: aliyun, static"
+        message="CLOUD_TO_USE environment variable was set to \"$CLOUD_TO_USE\" but must be set to one of the following: aliyun, static, ucloud"
         echo -e $message
         exit 1
         ;;
