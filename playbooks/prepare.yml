@@ -1,0 +1,14 @@
+---
+
+- name: initializing deployment target
+  hosts: all
+  gather_facts: false
+  tags: always
+  roles:
+    - check-config-dynamic
+
+- name: prepare docker-compose
+  hosts: all
+  tags: docker-compose
+  roles:
+    - docker-compose

@@ -1,0 +1,37 @@
+---
+
+- name: Load vairables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_os_family|lower }}-{{ ansible_distribution|lower }}.yml"
+        - "{{ ansible_os_family|lower }}-{{ ansible_distribution_major_version }}.yml"
+        - default.yml
+      paths:
+        -- vars
+
+- name: Detect docker-compose download url
+  shell: >
+    echo "{{ docker_compose_github_url }}/{{ default_docker_compose_version }}/docker-compose-`uname -s`-`uname -m`"
+  register: download_url_st
+
+- name: Set download_url fact
+  set_fact: download_url={{ download_url_st.stdout.strip() }}
+
+- name: Download docker-compose binary
+  get_url:
+    url: "{{ download_url }}"
+    dest: "{{ deploy_dir }}/binary/docker-compose"
+    checksum: "sha256:{{ download_url }}.sha256"
+    use_proxy: no
+    validate_certs: no
+
+- name: Install docker-compose to /usr/local/bin
+  copy:
+    remote_src: yes
+    src: "{{ deploy_dir }}/binary/docker-compose"
+    dest: /usr/local/bin/docker-compose
+    owner: root
+    group: root
+    mode: '0755'
+  become: yes
