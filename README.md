@@ -1,54 +1,65 @@
 # Environment Setup
 
-Ansible Playbooks that setup Linux Box automatically.
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-## Playbooks
+This `environment-setup` is a project which is aimed to setup a Linux Box automatically.
 
-The following sections summarize jobs of each playbook.
+This repository contains:
 
-__TLDR__: Refer to [details](./docs/detail.md), if you want more.
+1. The host inventory of different clouds or workspace.
+2. Ansible playbooks.
+3. The scripts that make your life easy.
 
-### Local Prepare
+## Table of Contents
 
-The script `local_prepare.sh` downloads third party code & binary from Internet.
+- [Background](#background)
+- [Install](#install)
+- [Usage](#usage)
+- [Maintainers](#maintainers)
+- [Contributing](#contributing)
+- [License](#license)
 
-```
-$ ./local_prepare.sh
-```
+## Background
 
-> Please make sure the connection to the Internet is OK before running the script.
-> If you are under GFW, please also make sure you have solution to bypass it.
+As a backend developer, I spend most of time working on Linux, as a result, I usually need to maintain simillar
+software on those Linux boxes.
 
-### Bootstrap
+Inspired by the **DRY** priciple, I create this project as an assistant to help me setting those tools.
 
-Bootstrap installs software and do the basic configuration, which is implemented by the script `bootstrap.sh`.
+> DRY: Don't Repeat Yourself.
 
-You need `root` privilege to do some task, so please make sure to run it as `root` user.
+## Install
 
-```
-$ CLOUD_TO_USE="aliyun" ./bootstrap.sh -e 'ansible_user=root' -k
-```
+__Warning:__ If you want to give these Ansible Playbooks a try, you should first fork this repository, review
+the code, and remove things you don't want or need. Don't blindly use my Ansible Playbooks unless you know what
+that entails. Use at your own risk!
 
-### Prepare User Account
+### Using Git and bootstrap script
 
-TBD
+You can clone the repository wherever you want. (I like to keep it in `~/Documents/code/devops/environment-setup`.)
+The bootstrapper script will pull in the latest version.
 
-```
-$ CLOUD_TO_USE="aliyun" ./prepare_user.sh --extra-vars="username=dantin" -e 'ansible_user=root' -k
-```
+    git clone https://github.com/dantin/environment-setup.git && cd environment-setup
+    pip install -r requirements.txt
 
-### `prepare_nodes.sh`
+## Usage
 
-TBD
+This is only a documentation page. You can find out more on [specification](docs/SPEC.md).
 
-```
-$ CLOUD_TO_USE="aliyun" ./prepare_nodes.sh
-```
+## Related Efforts
 
-### `configure_nodes.sh`
+- [Ansible](https://github.com/ansible/ansible) - A radically IT automation system. More information on [the Ansible website](https://ansible.com/).
 
-TBD
+## Maintainers
 
-```
-$ CLOUD_TO_USE="aliyun" ./configure_nodes.sh
-```
+[@dantin](https://github.com/dantin)
+
+## Contributing
+
+Suggestions and improvements welcome!
+
+Free free to [Open an issue](https://github.com/dantin/environment-setup/issues/new) or submit PRs.
+
+## License
+
+[BSD 3 Clause](LICENSE) © David Ding
