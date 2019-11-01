@@ -19,10 +19,12 @@ This repository contains:
 
 ## Background
 
-As a backend developer, I spend most of time working on Linux, as a result, I usually need to maintain
-simillar software between those Linux box.
+As a backend developer, I spend most of time working on Linux, as a result, I usually need to maintain simillar
+software on those Linux boxes.
 
-Inspired by the **DRY** priciple, I create this project as a helper library to setup those tools automatically.
+Inspired by the **DRY** priciple, I create this project as an assistant to help me setting those tools.
+
+> DRY: Don't Repeat Yourself.
 
 ## Install
 
@@ -35,7 +37,9 @@ that entails. Use at your own risk!
 You can clone the repository wherever you want. (I like to keep it in `~/Documents/code/devops/environment-setup`.)
 The bootstrapper script will pull in the latest version.
 
-    git clone https://github.com/dantin/environment-setup.git && cd environment-setup && pip install -r requirements.txt
+    git clone https://github.com/dantin/environment-setup.git
+    cd environment-setup
+    pip install -r requirements.txt
 
 ## Usage
 
@@ -53,7 +57,7 @@ This is only a documentation page. You can find out more on [specification](docs
 
 Suggestions and improvements welcome!
 
-Free free to [Open an issue](https://github.com/dantin/dotfile/issues/new) or submit PRs.
+Free free to [Open an issue](https://github.com/dantin/environment-setup/issues/new) or submit PRs.
 
 ## License
 
