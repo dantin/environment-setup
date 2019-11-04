@@ -6,7 +6,7 @@
     src: "{{ deploy_dir }}/source/{{ source_file }}"
     dest: "{{ deploy_dir }}/tmp"
 
-- name: Install dependency package(s)
+- name: Install dependency package
   yum:
     name: "{{ dependency_packages }}"
     update_cache: yes

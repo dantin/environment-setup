@@ -27,3 +27,10 @@
   tags: git
   roles:
     - git
+
+- name: Prepare cmake
+  hosts: all
+  gather_facts: false
+  tags: cmake
+  roles:
+    - cmake
