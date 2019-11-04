@@ -30,3 +30,5 @@
   file:
     path: "{{ deploy_dir }}/tmp/{{ compile_dir }}"
     state: absent
+  # NOTE: some files have 'root:root' permission, e.g. python3, we need to `sudo` to `root` here.
+  become: yes

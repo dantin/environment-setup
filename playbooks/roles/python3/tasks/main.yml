@@ -1,0 +1,52 @@
+---
+
+- name: Load variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - default.yml
+      paths:
+        -- vars
+
+- name: Download python3 source code
+  get_url:
+    url: "{{ python3_github_url }}/{{ default_python3_version }}/Python-{{ default_python3_version }}.tgz"
+    dest: "{{ deploy_dir }}/source/python3.tgz"
+    checksum: "sha256:8ecc681ea0600bbfb366f2b173f727b205bb825d93d2f0b286bc4e58d37693da"
+    use_proxy: no
+    validate_certs: no
+
+- name: Build customized python3 from source
+  include_role:
+    name: build-binary
+  vars:
+    this_role_name: python3
+    source_file: python3.tgz
+    compile_dir: "Python-{{ default_python3_version }}"
+    compile_command: >
+      ./configure --enable-optimizations --enable-shared && make -j8 build_all
+    install_command: >
+      make -j8 altinstall && cp libpython3.7* /usr/lib64 && ldconfig
+    dependency_packages:
+      - gcc
+      - gcc-c++
+      - autoconf
+      - make
+      - gdb
+      - libevent
+      - libevent-devel
+      - ncurses
+      - ncurses-devel
+      - zlib
+      - zlib-devel
+      - readline
+      - readline-devel
+      - openssl
+      - openssl-devel
+      - gettext-devel
+      - sqlite-devel
+      - expat-devel
+      - curl-devel
+      - bzip2-devel
+      - libffi-devel
+      - perl-ExtUtils-Embed

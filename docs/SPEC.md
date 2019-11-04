@@ -76,3 +76,40 @@ Install from source code:
     ./bootstrap && make
 
 More detail documentation is available on [code repository of cmake](https://github.com/Kitware/CMake).
+
+##### python3
+
+Build requires `gcc`, `gcc-c++`, `autoconf`, `make`, `gdb`, `libevent`, `libevent-devel`, `ncurses`, `ncurses-devel`,
+`zlib`, `zlib-devel`, `readline`, `readline-devel`, `openssl`, `openssl-devel`, `gettext-devel`, `sqlite-devel`,
+`expat-devel`, `curl-devel`, `bzip2-devel`, `libffi-devel` and `perl-ExtUtils-Embed`.
+
+Install from source code:
+
+    ./configure --enable-optimizations --enable-shared
+    make -j8 build_all
+    make -j8 altinstall
+    cp libpython3.7* /usr/lib64
+    ldconfig
+
+More detail documentation is available on [documents of python](https://docs.python.org/3.8/using/unix.html).
+
+
+##### vim
+
+Install from source code:
+
+    ./configure --prefix=/usr/local
+      --with-features=huge
+      --enable-cscope
+      --enable-multibyte
+      --enable-perlinterp
+      --enable-pythoninterp
+      --with-python-command=python
+      --enable-rubyinterp
+      --with-ruby-command=/usr/bin/ruby
+      --enable-luainterp
+      --with-lua-prefix=/usr
+      --with-compiledby="David Ding" &&
+      make
+
+More detail documantation is available on [code repository of vim](https://github.com/vim/vim).

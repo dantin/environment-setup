@@ -35,6 +35,13 @@
   roles:
     - cmake
 
+- name: Prepare python3
+  hosts: all
+  gather_facts: false
+  tags: python3
+  roles:
+    - python3
+
 - name: Prepare vim
   hosts: all
   gather_facts: false
