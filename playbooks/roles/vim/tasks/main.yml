@@ -23,8 +23,6 @@
     this_role_name: vim
     source_file: vim.tar.gz
     compile_dir: "vim-{{ default_vim_version }}"
-    #  --enable-python3interp
-    #  --with-python3-command=python3.7
     compile_command: >
       ./configure --prefix=/usr/local
       --with-features=huge
@@ -33,6 +31,8 @@
       --enable-perlinterp
       --enable-pythoninterp
       --with-python-command=python
+      --enable-python3interp
+      --with-python3-command=python3.7
       --enable-rubyinterp
       --with-ruby-command=/usr/bin/ruby
       --enable-luainterp
