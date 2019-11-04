@@ -34,3 +34,10 @@
   tags: cmake
   roles:
     - cmake
+
+- name: Prepare vim
+  hosts: all
+  gather_facts: false
+  tags: vim
+  roles:
+    - vim

@@ -1,0 +1,56 @@
+---
+
+- name: Load variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - default.yml
+      paths:
+        -- vars
+
+- name: Download vim source code
+  get_url:
+    url: "{{ vim_github_url }}/archive/v{{ default_vim_version }}.tar.gz"
+    dest: "{{ deploy_dir }}/source/vim.tar.gz"
+    checksum: "sha256:548305642ad0f4716f065cd89f68d8a75e378ecd464062beb9189d55d1d9040d"
+    use_proxy: no
+    validate_certs: no
+
+- name: Build customized vim from source
+  include_role:
+    name: build-binary
+  vars:
+    this_role_name: vim
+    source_file: vim.tar.gz
+    compile_dir: "vim-{{ default_vim_version }}"
+    #  --enable-python3interp
+    #  --with-python3-command=python3.7
+    compile_command: >
+      ./configure --prefix=/usr/local
+      --with-features=huge
+      --enable-cscope
+      --enable-multibyte
+      --enable-perlinterp
+      --enable-pythoninterp
+      --with-python-command=python
+      --enable-rubyinterp
+      --with-ruby-command=/usr/bin/ruby
+      --enable-luainterp
+      --with-lua-prefix=/usr
+      --with-compiledby="David Ding" &&
+      make
+    install_command:
+      make install
+    dependency_packages:
+      - gcc
+      - gcc-c++
+      - ruby
+      - ruby-devel
+      - perl-devel
+      - perl-ExtUtils-Embed
+      - python-devel
+      - lua
+      - lua-devel
+      - ncurses
+      - ncurses-devel
+      # - git
