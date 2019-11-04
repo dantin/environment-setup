@@ -1,0 +1,38 @@
+---
+
+- name: Load vairables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        #- "{{ ansible_os_family|lower }}-{{ ansible_distribution|lower }}.yml"
+        #- "{{ ansible_os_family|lower }}-{{ ansible_distribution_major_version }}.yml"
+        - default.yml
+      paths:
+        -- vars
+
+- name: Download tmux source code
+  get_url:
+    url: "{{ tmux_github_url }}/archive/{{ default_tmux_version }}.tar.gz"
+    dest: "{{ deploy_dir }}/source/tmux.tar.gz"
+    # get checksum via command:
+    #     $ sha256sum tmux.tar.gz
+    checksum: "sha256:0d9cdebe9226d2745a46c018a01cd87aa996b32349335650afba638f42013f1c"
+    use_proxy: no
+    validate_certs: no
+
+- name: Build customized tmux from source
+  include_role:
+    name: build-binary
+  vars:
+    this_role_name: tmux
+    source_file: tmux.tar.gz
+    compile_dir: "tmux-{{ default_tmux_version }}"
+    compile_command: >
+      sh autogen.sh && ./configure && make
+    install_command: >
+      make install
+    dependency_packages:
+      - autoconf
+      - automake
+      - libevent
+      - ncurses

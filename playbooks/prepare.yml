@@ -7,8 +7,16 @@
   roles:
     - check-config-dynamic
 
+- name: Prepare tmux
+  hosts: all
+  gather_facts: false
+  tags: tmux
+  roles:
+    - tmux
+
 - name: Prepare docker-compose
   hosts: all
+  gather_facts: false
   tags: docker-compose
   roles:
     - docker-compose

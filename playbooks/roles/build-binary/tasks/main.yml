@@ -1,0 +1,32 @@
+---
+
+- name: Extract {{ this_role_name }} source
+  unarchive:
+    remote_src: yes
+    src: "{{ deploy_dir }}/source/{{ source_file }}"
+    dest: "{{ deploy_dir }}/tmp"
+
+- name: Install dependency package(s)
+  yum:
+    name: "{{ dependency_packages }}"
+    update_cache: yes
+    state: present
+  become: yes
+
+- name: Compile {{ this_role_name }} from source
+  shell: >
+    {{ compile_command }}
+  args:
+    chdir: "{{ deploy_dir }}/tmp/{{ compile_dir }}"
+
+- name: Install {{ this_role_name }} using compiled binary
+  shell: >
+    {{ install_command }}
+  args:
+    chdir: "{{ deploy_dir }}/tmp/{{ compile_dir }}"
+  become: yes
+
+- name: Clean up {{ this_role_name }} temp files
+  file:
+    path: "{{ deploy_dir }}/tmp/{{ compile_dir }}"
+    state: absent
