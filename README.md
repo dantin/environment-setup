@@ -39,8 +39,8 @@ that entails. Use at your own risk!
 You can clone the repository wherever you want. (I like to keep it in `~/Documents/code/devops/environment-setup`.)
 The bootstrapper script will pull in the latest version.
 
-    git clone https://github.com/dantin/environment-setup.git && cd environment-setup
-    pip install -r requirements.txt
+    $ git clone https://github.com/dantin/environment-setup.git && cd environment-setup
+    $ pip install -r requirements.txt
 
 ## Usage
 
@@ -49,6 +49,7 @@ This is only a documentation page. You can find out more on [specification](docs
 ## Related Efforts
 
 - [Ansible](https://github.com/ansible/ansible) - A radically IT automation system. More information on [the Ansible website](https://ansible.com/).
+- [devbox](https://github.com/dantin/devbox) - A Dockerfile that build docker image for development environment.
 
 ## Maintainers
 
