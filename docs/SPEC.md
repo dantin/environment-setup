@@ -25,7 +25,7 @@ The `prepare.sh` script downloads and installs software automatically on remote 
 
 Usage:
 
-    CLOUD_TO_USE=ucloud ./prepare.sh --tags=<software_name>
+    $ CLOUD_TO_USE=ucloud ./prepare.sh --tags=<software_name>
 
 _NOTE:_ Before use, make sure the connection to the Internet is OK on your host.
 
@@ -35,8 +35,8 @@ _NOTE:_ Before use, make sure the connection to the Internet is OK on your host.
 
 Install from binary:
 
-    curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
+    $ curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    $ chmod +x /usr/local/bin/docker-compose
 
 Installation documentation is available on [code repository of Compose](https://github.com/docker/compose).
 
@@ -48,9 +48,11 @@ Build requires `autoconf`, `automake` and `pkg-config`, and it depends on `libev
 
 Install from source code:
 
-    git clone https://github.com/tmux/tmux.git && cd tmux
-    sh autogen.sh
-    ./configure && make
+    $ git clone https://github.com/tmux/tmux.git && cd tmux
+    $ sh autogen.sh
+    $ ./configure
+    $ make
+    $ sudo make install
 
 More detail documentation is available on [code repository of tmux](https://github.com/tmux/tmux).
 
@@ -61,9 +63,10 @@ Build requires libraries such as: autotools, curl, zlib, openssl, expat, and lib
 
 Install from source code:
 
-    make configure
-    ./configure --prefix=/usr/local
-    make all
+    $ make configure
+    $ ./configure --prefix=/usr/local
+    $ make all
+    $ sudo make install
 
 More detail documantation is available on [code repository of git](https://github.com/git/git), or [git-scm.com](https://git-scm.com/).
 
@@ -73,7 +76,9 @@ Build requires `gcc` and `gcc-c++`.
 
 Install from source code:
 
-    ./bootstrap && make
+    $ ./bootstrap
+    $ make
+    $ sudo make install
 
 More detail documentation is available on [code repository of cmake](https://github.com/Kitware/CMake).
 
@@ -85,11 +90,11 @@ Build requires `gcc`, `gcc-c++`, `autoconf`, `make`, `gdb`, `libevent`, `libeven
 
 Install from source code:
 
-    ./configure --enable-optimizations --enable-shared
-    make -j8 build_all
-    make -j8 altinstall
-    cp libpython3.7* /usr/lib64
-    ldconfig
+    $ ./configure --enable-optimizations --enable-shared
+    $ make -j8 build_all
+    $ make -j8 altinstall
+    $ cp libpython3.7* /usr/lib64
+    $ ldconfig
 
 More detail documentation is available on [documents of python](https://docs.python.org/3.8/using/unix.html).
 
@@ -98,7 +103,7 @@ More detail documentation is available on [documents of python](https://docs.pyt
 
 Install from source code:
 
-    ./configure --prefix=/usr/local
+    $ ./configure --prefix=/usr/local
       --with-features=huge
       --enable-cscope
       --enable-multibyte
@@ -109,7 +114,8 @@ Install from source code:
       --with-ruby-command=/usr/bin/ruby
       --enable-luainterp
       --with-lua-prefix=/usr
-      --with-compiledby="David Ding" &&
-      make
+      --with-compiledby="David Ding"
+    $ make
+    $ sudo make install
 
 More detail documantation is available on [code repository of vim](https://github.com/vim/vim).

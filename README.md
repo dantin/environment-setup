@@ -39,8 +39,8 @@ that entails. Use at your own risk!
 You can clone the repository wherever you want. (I like to keep it in `~/Documents/code/devops/environment-setup`.)
 The bootstrapper script will pull in the latest version.
 
-    git clone https://github.com/dantin/environment-setup.git && cd environment-setup
-    pip install -r requirements.txt
+    $ git clone https://github.com/dantin/environment-setup.git && cd environment-setup
+    $ pip install -r requirements.txt
 
 ## Usage
 
