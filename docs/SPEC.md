@@ -7,6 +7,12 @@ _NOTE_: Some of the scripts are still under developing.
 - [Supported Cloud](#supported-cloud)
 - [Scripts](#scripts)
   - [Prepare](#prepare)
+    - [docker-compose](#docker-compose)
+    - [tmux](#tmux)
+    - [git](#git)
+    - [cmake](#cmake)
+    - [python3](#python3)
+    - [vim](#vim)
 
 ## Supported Cloud
 
@@ -29,9 +35,7 @@ Usage:
 
 _NOTE:_ Before use, make sure the connection to the Internet is OK on your host.
 
-#### Supported Tools
-
-##### docker-compose
+#### docker-compose
 
 Install from binary:
 
@@ -42,7 +46,7 @@ Installation documentation is available on [code repository of Compose](https://
 
 > If you're a Mac or Windows user, the best way to install Compose and keep it up-to-date is Docker Desktop for Mac and Windows.
 
-##### tmux
+#### tmux
 
 Build requires `autoconf`, `automake` and `pkg-config`, and it depends on `libevent 2.x`, `ncurses`.
 
@@ -56,7 +60,7 @@ Install from source code:
 
 More detail documentation is available on [code repository of tmux](https://github.com/tmux/tmux).
 
-##### git
+#### git
 
 Build requires libraries such as: autotools, curl, zlib, openssl, expat, and libiconv. On CentOS you need: `dh-autoreconf`, `curl-devel`,
 `expat-devel`, `gettext-devel`, `openssl-devel`, `perl-devel`, and `zlib-devel`.
@@ -70,7 +74,7 @@ Install from source code:
 
 More detail documantation is available on [code repository of git](https://github.com/git/git), or [git-scm.com](https://git-scm.com/).
 
-##### cmake
+#### cmake
 
 Build requires `gcc` and `gcc-c++`.
 
@@ -82,7 +86,7 @@ Install from source code:
 
 More detail documentation is available on [code repository of cmake](https://github.com/Kitware/CMake).
 
-##### python3
+#### python3
 
 Build requires `gcc`, `gcc-c++`, `autoconf`, `make`, `gdb`, `libevent`, `libevent-devel`, `ncurses`, `ncurses-devel`,
 `zlib`, `zlib-devel`, `readline`, `readline-devel`, `openssl`, `openssl-devel`, `gettext-devel`, `sqlite-devel`,
@@ -98,8 +102,9 @@ Install from source code:
 
 More detail documentation is available on [documents of python](https://docs.python.org/3.8/using/unix.html).
 
+#### vim
 
-##### vim
+_NOTE:_ If you want enable `python3`, you should install `python3` first.
 
 Install from source code:
 
@@ -110,6 +115,8 @@ Install from source code:
       --enable-perlinterp
       --enable-pythoninterp
       --with-python-command=python
+      --enable-python3interp
+      --with-python3-command=python3.7
       --enable-rubyinterp
       --with-ruby-command=/usr/bin/ruby
       --enable-luainterp
