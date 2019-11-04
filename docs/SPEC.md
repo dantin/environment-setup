@@ -66,3 +66,13 @@ Install from source code:
     make all
 
 More detail documantation is available on [code repository of git](https://github.com/git/git), or [git-scm.com](https://git-scm.com/).
+
+##### cmake
+
+Build requires `gcc` and `gcc-c++`.
+
+Install from source code:
+
+    ./bootstrap && make
+
+More detail documentation is available on [code repository of cmake](https://github.com/Kitware/CMake).

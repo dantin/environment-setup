@@ -1,0 +1,32 @@
+---
+
+- name: Load variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - default.yml
+      paths:
+        -- vars
+
+- name: Download cmake source code
+  get_url:
+    url: "{{ cmake_github_url }}/archive/v{{ default_cmake_version }}.tar.gz"
+    dest: "{{ deploy_dir }}/source/cmake.tar.gz"
+    checksum: "sha256:b76885c51dc98cdb0cec423e397781296d26b4027aa7430ea8df66dec3b3c1ce"
+    use_proxy: no
+    validate_certs: no
+
+- name: Build customized cmake from source
+  include_role:
+    name: build-binary
+  vars:
+    this_role_name: cmake
+    source_file: cmake.tar.gz
+    compile_dir: "CMake-{{ default_cmake_version }}"
+    compile_command: >
+      ./bootstrap && make
+    install_command: >
+      make install
+    dependency_packages:
+      - gcc
+      - gcc-c++
