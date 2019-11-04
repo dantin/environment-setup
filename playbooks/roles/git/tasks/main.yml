@@ -1,0 +1,37 @@
+---
+
+- name: Load vairables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - default.yml
+      paths:
+        -- vars
+
+- name: Download git source code
+  get_url:
+    url: "{{ git_github_url }}/archive/v{{ default_git_version }}.tar.gz"
+    dest: "{{ deploy_dir }}/source/git.tar.gz"
+    checksum: "sha256:7d84f5d6f48e95b467a04a8aa1d474e0d21abc7877998af945568d2634fea46a"
+    use_proxy: no
+    validate_certs: no
+
+- name: Build customized git from source
+  include_role:
+    name: build-binary
+  vars:
+    this_role_name: git
+    source_file: git.tar.gz
+    compile_dir: "git-{{ default_git_version }}"
+    compile_command: >
+      make configure && ./configure --prefix=/usr/local && make all
+    install_command: >
+      make install
+    dependency_packages:
+      - dh-autoreconf
+      - curl-devel
+      - expat-devel
+      - gettext-devel
+      - openssl-devel
+      - perl-devel
+      - zlib-devel

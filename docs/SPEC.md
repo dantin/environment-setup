@@ -53,3 +53,16 @@ Install from source code:
     ./configure && make
 
 More detail documentation is available on [code repository of tmux](https://github.com/tmux/tmux).
+
+##### git
+
+Build requires libraries such as: autotools, curl, zlib, openssl, expat, and libiconv. On CentOS you need: `dh-autoreconf`, `curl-devel`,
+`expat-devel`, `gettext-devel`, `openssl-devel`, `perl-devel`, and `zlib-devel`.
+
+Install from source code:
+
+    make configure
+    ./configure --prefix=/usr/local
+    make all
+
+More detail documantation is available on [code repository of git](https://github.com/git/git), or [git-scm.com](https://git-scm.com/).

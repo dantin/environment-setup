@@ -20,3 +20,10 @@
   tags: docker-compose
   roles:
     - docker-compose
+
+- name: Prepare git
+  hosts: all
+  gather_facts: false
+  tags: git
+  roles:
+    - git
