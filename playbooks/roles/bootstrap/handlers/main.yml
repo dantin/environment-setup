@@ -1,0 +1,11 @@
+---
+
+- name: yum clean all
+  command: yum clean all
+  args:
+    warn: no
+
+- name: yum makecache
+  command: yum makecache fast --nogpgcheck
+  args:
+    warn: no

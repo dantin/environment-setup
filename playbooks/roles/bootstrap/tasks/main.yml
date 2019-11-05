@@ -4,41 +4,73 @@
   include_vars: "{{ item }}"
   with_first_found:
     - files:
-        - "{{ ansible_os_family|lower }}-{{ ansible_distribution|lower }}.yml"
-        - "{{ ansible_os_family|lower }}-{{ ansible_distribution_major_version }}.yml"
-        - defaults.yml
+        - default.yml
       paths:
         -- vars
 
-- include_vars: file={{ playbook_dir }}/conf/binary_packages.yml
+- block:
+    - name: Find repo files on /etc/yum.repos.d/ directory
+      find:
+        paths: "/etc/yum.repos.d"
+        patterns: "*.repo"
+      register: repo_results_st
 
-- name: Install {{ package_in_repo | join(',') }} from repository
+    - name: Remove old CentOS repo files
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: >
+        {{ repo_results_st.files }}
+      notify:
+        - yum clean all
+
+    - name: Use mirrors.aliyun.com as CentOS repo
+      get_url:
+        url: http://mirrors.aliyun.com/repo/Centos-7.repo
+        dest: /etc/yum.repos.d/CentOS-Base.repo
+        use_proxy: no
+        validate_certs: no
+      notify:
+        - yum makecache
+
+    - meta: flush_handlers
+
+    - name: Determine if epel.repo exists
+      stat:
+        path: /etc/yum.repos.d/epel.repo
+      register: epel_repo_st
+
+    - name: Remove broken EPEL repository
+      package:
+        name: epel-release
+        state: absent
+      when: epel_repo_st.stat.exists == False
+
+    - name: Enable EPEL (Extra Package for Enterprise Linux) repository
+      package:
+        name: epel-release
+        update_cache: yes
+        state: present
+      # NOTE: use the following to install epel-release if it is not found.
+      # yum: name=http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm state=present
+
+- name: Install required packages
   package:
     name: "{{ item }}"
     update_cache: yes
     state: present
-  with_items: "{{ package_in_repo | join(',') }}"
+  with_items: "{{ packages | join(',') }}"
 
-- name: Build binary from source
-  include_role:
-    name: common-build
-  vars:
-    target: "{{ item.name }}-{{ item.version }}"
-    default_target: "{{ package_in_source[item.name|lower]['default_package'] | default([]) }}"
-    target_dependency: "{{ package_in_source[item.name|lower]['build_dependency'] | default([]) }}"
-    compile_command: "{{- item.compile_cmd }}"
-    install_command: "{{ item.install_cmd }}"
-  with_items: "{{ third_party_code }}"
+- name: Make sure the NTP service is started
+  service:
+    name: "{{ ntp_service_name }}"
+    state: started
 
-# reinstall Vim may remove `sudo` package, here we make sure it is installed.
-- name: Install sudo package
-  package:
-    name: sudo
-    update_cache: yes
-    state: present
+- name: Make sure the NTP service is enabled
+  service:
+    name: "{{ ntp_service_name }}"
+    enabled: yes
+  ignore_errors: true
 
-- name: Install docker engine
-  include_tasks: "docker-engine.yml"
-
-- name: Setup basic system
-  include_tasks: "setup.yml"
+- name: Configure global settings
+  include_tasks: "global-settings.yml"
