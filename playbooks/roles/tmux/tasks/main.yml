@@ -35,4 +35,6 @@
       - autoconf
       - automake
       - libevent
+      - libevent-devel
       - ncurses
+      - ncurses-devel

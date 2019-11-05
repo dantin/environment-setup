@@ -72,5 +72,5 @@
     enabled: yes
   ignore_errors: true
 
-- name: Set hostname
-  hostname: name="{{ inventory_hostname_short }}"
+- name: Configure global settings
+  include_tasks: "global-settings.yml"

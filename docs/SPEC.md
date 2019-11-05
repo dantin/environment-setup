@@ -4,7 +4,7 @@ _NOTE_: Some of the scripts are still under developing.
 
 ## Table of Contents
 
-- [Supported Cloud](#supported-cloud)
+- [Machine List](#michine-list)
 - [Scripts](#scripts)
   - [Boostrap](#bootstrap)
   - [Prepare](#prepare)
@@ -15,19 +15,20 @@ _NOTE_: Some of the scripts are still under developing.
     - [python3](#python3)
     - [vim](#vim)
 
-## Supported Cloud
+## Machine List
 
-Up till now, I have hosts on the following cloud:
+You can edit machine list under `inventory` directory, uptill now, I have hosts on the following clouds:
 
 - UCloud
 - Aliyun
 
-You can switch between them by using `CLOUD_TO_USE` environment variable.
+You can switch between clouds by using `CLOUD_TO_USE` environment variable.
 
 ## Bootstrap
 
-The `bootstrap.sh` script setup basic environment of a remote host, e.g. set yum repository to
-[mirrors.aliyun.com](http://mirrors.aliyun.com/repo), enable EPEL repository, install and start NTP service, etc.
+The `bootstrap.sh` script sets up basic environment of a remote host, e.g. set yum repository to
+[mirrors.aliyun.com](http://mirrors.aliyun.com/repo), enable EPEL repository, install and start NTP service,
+besides this, is also configures global environment settings such as hostname, `LANG`, etc.
 
 Usage:
 
