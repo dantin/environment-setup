@@ -4,5 +4,6 @@ extra_os_repository: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.
 
 packages:
   - chrony            # ntp required
+  - tree
 
 ntp_service_name: chronyd
