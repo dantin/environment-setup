@@ -1,9 +1,10 @@
 ---
-- name: Setup default Git configuration
+
+- name: Set default Git configuration
   git_config:
-    name="{{ item.name }}"
-    scope=global
-    value="{{ item.value }}"
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
   with_items:
     - { name: "user.name", value: "dantin" }
     - { name: "user.email", value: "chengjie.ding@gmail.com" }

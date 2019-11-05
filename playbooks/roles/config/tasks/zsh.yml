@@ -1,5 +1,10 @@
 ---
 
+- name: Determine if .oh-my-zsh exists
+  stat:
+    path: ~/.oh-my-zsh
+  register: oh_my_zsh_st
+
 - name: Download oh-my-zsh install script
   get_url:
     url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
@@ -8,14 +13,12 @@
     use_proxy: no
     validate_certs: no
     mode: 0755
+  when: oh_my_zsh_st.stat.exists == False
 
 - name: Install oh-my-zsh
   raw: echo no | sh -c "{{ deploy_dir }}/scripts/install_zsh.sh"
+  when: oh_my_zsh_st.stat.exists == False
 
-#
-#- name: Create a new zsh configuration file
-#  raw: cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-#
-#- name: Change default shell
-#  become: yes
-#  raw: chsh -s /usr/bin/zsh {{ ansible_user }}
+- name: Change default shell
+  raw: chsh -s /usr/bin/zsh {{ ansible_user }}
+  become: yes
