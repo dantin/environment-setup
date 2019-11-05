@@ -4,17 +4,18 @@ _NOTE_: Some of the scripts are still under developing.
 
 ## Table of Contents
 
-- [Machine List](#michine-list)
+- [Machine List](#machine-list)
 - [Scripts](#scripts)
   - [Boostrap](#bootstrap)
   - [Prepare](#prepare)
-    - [docker-compose](#docker-compose)
     - [tmux](#tmux)
     - [git](#git)
     - [cmake](#cmake)
     - [python3](#python3)
     - [vim](#vim)
     - [zsh](#zsh)
+    - [docker-engine](#docker-engine)
+    - [docker-compose](#docker-compose)
 
 ## Machine List
 
@@ -48,17 +49,6 @@ Usage:
     $ CLOUD_TO_USE=ucloud ./prepare.sh --tags=<software_name>
 
 _NOTE:_ Before use, make sure the connection to the Internet is OK on your host.
-
-#### docker-compose
-
-Install from binary:
-
-    $ curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-    $ chmod +x /usr/local/bin/docker-compose
-
-Installation documentation is available on [code repository of Compose](https://github.com/docker/compose).
-
-> If you're a Mac or Windows user, the best way to install Compose and keep it up-to-date is Docker Desktop for Mac and Windows.
 
 #### tmux
 
@@ -149,3 +139,37 @@ Install from yum repository:
     $ sudo yum install -y zsh
 
 More detail documentation about config is on [oh-my-zsh](https://ohmyz.sh/).
+
+#### Docker Compose
+
+Install from binary:
+
+    $ curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    $ chmod +x /usr/local/bin/docker-compose
+
+Installation documentation is available on [code repository of Compose](https://github.com/docker/compose).
+
+> If you're a Mac or Windows user, the best way to install Compose and keep it up-to-date is Docker Desktop for Mac and Windows.
+
+#### Docker Engine
+
+Install from Docker Official repository:
+
+    $ sudo yum remove docker \
+                docker-client \
+                docker-client-latest \
+                docker-common \
+                docker-latest \
+                docker-latest-logrotate \
+                docker-logrotate \
+                docker-engine
+    $ sudo yum install -y yum-utils \
+                device-mapper-persistent-data \
+                lvm2
+    $ sudo yum-config-manager \
+                --add-repo \
+                https://download.docker.com/linux/centos/docker-ce.repo
+    $ sudo yum install docker-ce docker-ce-cli containerd.io
+    $ sudo systemctl start docker
+
+Installation documentation is available on [Docker Official website](https://docs.docker.com/install/linux/docker-ce/centos/).

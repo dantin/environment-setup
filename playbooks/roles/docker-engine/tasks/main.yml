@@ -1,0 +1,78 @@
+---
+
+- name: Load variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - default.yml
+      paths:
+        -- vars
+
+- name: Make sure the docker engine service is disabled
+  service:
+    name: docker
+    enabled: no
+  ignore_errors: true
+  become: true
+
+- name: Make sure the docker engine service is stopped
+  service:
+    name: docker
+    state: stopped
+  ignore_errors: true
+  become: true
+
+- name: Uninstall system default docker engine
+  yum:
+    name:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-selinux
+      - docker-engine-selinux
+      - docker-engine
+      - docker-ce
+    state: absent
+  become: true
+
+- name: Install dependency for device mapper storage driver
+  yum:
+    name:
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
+    state: present
+  become: true
+
+- name: Add docker official repository
+  raw: yum-config-manager --add-repo {{ docker_official_repo }}
+  notify:
+    - yum makecache
+  become: true
+
+- meta: flush_handlers
+
+- name: Install Docker Community edition
+  yum:
+    name: docker-ce
+    state: present
+  notify:
+    - reload systemd
+  become: true
+
+- meta: flush_handlers
+
+- name: Make sure the docker engine service is started
+  service:
+    name: docker
+    state: started
+  become: true
+
+- name: Make sure the docker engine service is enabled
+  service:
+    name: docker
+    enabled: yes
+  become: true
