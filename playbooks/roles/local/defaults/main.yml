@@ -1,4 +1,0 @@
----
-# Random shifts for retrying failed ops like downloading
-retry_stagger: 5
-retry_count: 4
