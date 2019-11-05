@@ -6,6 +6,13 @@
   roles:
     - preflight-checks
 
+- name: Initializing deployment target
+  hosts: all
+  gather_facts: false
+  tags: always
+  roles:
+    - check-config-dynamic
+
 - name: Prepare base system
   hosts: all
   gather_facts: false

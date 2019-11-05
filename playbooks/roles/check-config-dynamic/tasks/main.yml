@@ -1,5 +1,19 @@
 ---
 
+- name: Detect outbound network
+  shell: >
+    warn=no
+    curl -s --connect-timeout 10 www.baidu.com >/dev/null 2>&1; echo $?
+  changed_when: false
+  register: outbound_network_st
+
+- name: Set outbound network fact
+  set_fact: has_outbound_network={{ outbound_network_st.stdout.strip() == '0' }}
+
+- fail:
+    msg: "The Remote Machine must have access to the Internet in order to download binaries and open-source code."
+  when: not has_outbound_network
+
 - name: Config variables (default)
   set_fact:
     firewalld_ports: []
