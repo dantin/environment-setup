@@ -14,6 +14,7 @@ _NOTE_: Some of the scripts are still under developing.
     - [cmake](#cmake)
     - [python3](#python3)
     - [vim](#vim)
+    - [zsh](#zsh)
 
 ## Machine List
 
@@ -140,3 +141,11 @@ Install from source code:
     $ sudo make install
 
 More detail documantation is available on [code repository of vim](https://github.com/vim/vim).
+
+#### zsh
+
+Install from yum repository:
+
+    $ sudo yum install -y zsh
+
+More detail documentation about config is on [oh-my-zsh](https://ohmyz.sh/).
