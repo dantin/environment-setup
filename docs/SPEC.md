@@ -33,7 +33,7 @@ Usage:
 
     $ CLOUD_TO_USE=ucloud ./bootstrap.sh
 
-_NOTE:_ Make sure the Ansible user has `ROOT` or `sudo` privileges.
+_NOTE:_ Make sure the Ansible user has `root` or `sudo` privileges.
 
 ## Scripts
 
@@ -74,8 +74,9 @@ More detail documentation is available on [code repository of tmux](https://gith
 
 #### git
 
-Build requires libraries such as: autotools, curl, zlib, openssl, expat, and libiconv. On CentOS you need: `dh-autoreconf`, `curl-devel`,
-`expat-devel`, `gettext-devel`, `openssl-devel`, `perl-devel`, and `zlib-devel`.
+Build requires libraries such as: autotools, `curl`, `zlib`, `openssl`, `expat`, and `libiconv`.
+On CentOS you need: `dh-autoreconf`, `curl-devel`, `expat-devel`, `gettext-devel`, `openssl-devel`,
+`perl-devel`, and `zlib-devel`.
 
 Install from source code:
 
