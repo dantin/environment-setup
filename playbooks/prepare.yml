@@ -1,5 +1,11 @@
 ---
 
+- name: Preflight checks
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - preflight-checks
+
 - name: Initializing deployment target
   hosts: all
   gather_facts: false
@@ -13,6 +19,13 @@
   tags: tmux
   roles:
     - tmux
+
+- name: Prepare docker-engine
+  hosts: all
+  gather_facts: false
+  tags: docker-engine
+  roles:
+    - docker-engine
 
 - name: Prepare docker-compose
   hosts: all

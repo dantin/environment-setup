@@ -1,0 +1,11 @@
+---
+
+- name: yum makecache
+  command: yum makecache fast --nogpgcheck
+  args:
+    warn: no
+  become: true
+
+- name: reload systemd
+  command: systemctl daemon-reload
+  become: true
