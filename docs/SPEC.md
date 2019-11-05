@@ -6,6 +6,7 @@ _NOTE_: Some of the scripts are still under developing.
 
 - [Supported Cloud](#supported-cloud)
 - [Scripts](#scripts)
+  - [Boostrap](#bootstrap)
   - [Prepare](#prepare)
     - [docker-compose](#docker-compose)
     - [tmux](#tmux)
@@ -22,6 +23,17 @@ Up till now, I have hosts on the following cloud:
 - Aliyun
 
 You can switch between them by using `CLOUD_TO_USE` environment variable.
+
+## Bootstrap
+
+The `bootstrap.sh` script setup basic environment of a remote host, e.g. set yum repository to
+[mirrors.aliyun.com](http://mirrors.aliyun.com/repo), enable EPEL repository, install and start NTP service, etc.
+
+Usage:
+
+    $ CLOUD_TO_USE=ucloud ./bootstrap.sh
+
+_NOTE:_ Make sure the Ansible user has `ROOT` or `sudo` privileges.
 
 ## Scripts
 
