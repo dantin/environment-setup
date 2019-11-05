@@ -1,0 +1,21 @@
+---
+
+- name: Download oh-my-zsh install script
+  get_url:
+    url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+    dest: "{{ deploy_dir }}/scripts/install_zsh.sh"
+    checksum: "sha256:8e772598a453e6ebeeb2774e0a9022e2e9d61f98c47f5aed4005744e86a2771f"
+    use_proxy: no
+    validate_certs: no
+    mode: 0755
+
+- name: Install oh-my-zsh
+  raw: echo no | sh -c "{{ deploy_dir }}/scripts/install_zsh.sh"
+
+#
+#- name: Create a new zsh configuration file
+#  raw: cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+#
+#- name: Change default shell
+#  become: yes
+#  raw: chsh -s /usr/bin/zsh {{ ansible_user }}
