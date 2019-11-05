@@ -1,18 +1,16 @@
 ---
 
-- name: Install zsh binary
-  become: yes
+- name: Install zsh from repository
   package:
     name: zsh
+    update_cache: yes
     state: present
+  become: yes
 
-- name: Upload the install.sh script
-  template:
-    src: install.sh.j2
-    dest: "{{ ansible_user_dir }}/install.sh"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: 0755
-
-- name: Install oh-my-zsh
-  raw: "sh -c {{ ansible_user_dir }}/install.sh"
+- name: Update zsh to /etc/shells
+  blockinfile:
+    path: /etc/shells
+    block: |
+        /usr/bin/zsh
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+  become: yes

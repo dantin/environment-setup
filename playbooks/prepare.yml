@@ -48,3 +48,10 @@
   tags: vim
   roles:
     - vim
+
+- name: Prepare zsh
+  hosts: all
+  gather_facts: false
+  tags: zsh
+  roles:
+    - zsh
