@@ -1,5 +1,5 @@
 [dev_boxes]
-dev01 ansible_host=47.102.97.77
+ecs01 ansible_host=47.102.97.77
 
 ## Global variables
 [all:vars]

@@ -1,5 +1,5 @@
 [dev_boxes]
-dev01 ansible_host=106.75.252.77
+ucloud01 ansible_host=106.75.252.77
 
 ## Global variables
 [all:vars]
