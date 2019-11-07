@@ -1,12 +1,12 @@
 ---
 
-- name: Clone Vimrc configuration
+- name: Update vim-config from github.com
   git:
-    repo: 'git@github.com:dantin/vimrc.git'
-    dest: /home/{{ ansible_user }}/.vim_runtime
+    repo: "https://github.com/dantin/vim-config.git"
+    dest: "/home/{{ ansible_user }}/{{ code_dir }}/vim-config"
 
-- name: Upload the .vimrc file
-  template:
-    src: vimrc.j2
-    dest: /home/{{ ansible_user }}/.vimrc
-    mode: 0644
+- name: Configure Vim using vim-config
+  shell: >
+    sh -c ./bootstrap.sh
+  args:
+    chdir: "/home/{{ ansible_user }}/{{ code_dir }}/vim-config"

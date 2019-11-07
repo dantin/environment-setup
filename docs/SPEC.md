@@ -16,6 +16,8 @@ _NOTE_: Some of the scripts are still under developing.
     - [zsh](#zsh)
     - [docker-engine](#docker-engine)
     - [docker-compose](#docker-compose)
+  - [Config](#config)
+    - [vim](#vim)
 
 ## Machine List
 
@@ -173,3 +175,11 @@ Install from Docker Official repository:
     $ sudo systemctl start docker
 
 Installation documentation is available on [Docker Official website](https://docs.docker.com/install/linux/docker-ce/centos/).
+
+### Config
+
+#### vim
+
+Vim configuration use `vim-plug` as plug management tool.
+
+More details are available on [vim-config](https://github.com/dantin/vim-config).

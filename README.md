@@ -50,6 +50,8 @@ This is only a documentation page. You can find out more on [specification](docs
 
 - [Ansible](https://github.com/ansible/ansible) - A radically IT automation system. More information on [the Ansible website](https://ansible.com/).
 - [devbox](https://github.com/dantin/devbox) - A Dockerfile that build docker image for development environment.
+- [dotfile](https://github.com/dantin/dotfile) - A personal customized dotfiles.
+- [vim-config](https://github.com/dantin/vim-config) - A personal configuration of Vim.
 
 ## Maintainers
 
