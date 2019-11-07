@@ -1,0 +1,20 @@
+---
+
+- name: Preflight checks
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - preflight-checks
+
+- name: Initializing deployment target
+  hosts: all
+  gather_facts: false
+  tags: always
+  roles:
+    - check-config-dynamic
+
+- name: Customize user settings
+  hosts: all
+  gather_facts: false
+  roles:
+    - { role: config, "target": "{{ target }}"}

@@ -1,0 +1,17 @@
+---
+
+- name: Setup user directories
+  include_tasks: basic.yml
+  when: target == 'basic'|default(false)
+
+- name: Config Git
+  include_tasks: git.yml
+  when: target == 'git'|default(false)
+
+- name: Config Vim
+  include_tasks: vim.yml
+  when: target == 'vim'|default(false)
+
+- name: Config Zsh
+  include_tasks: zsh.yml
+  when: target == 'zsh'|default(false)

@@ -6,3 +6,4 @@
     - "{{ deploy_dir }}/binary"
     - "{{ deploy_dir }}/source"
     - "{{ deploy_dir }}/tmp"
+    - "{{ deploy_dir }}/scripts"

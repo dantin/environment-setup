@@ -49,8 +49,9 @@
       - perl-devel
       - perl-ExtUtils-Embed
       - python-devel
+      - python3-devel
       - lua
       - lua-devel
       - ncurses
       - ncurses-devel
-      # - git
+      - git
