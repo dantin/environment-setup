@@ -20,7 +20,7 @@
   replace:
     path: "$HOME/.zshrc"
     regexp: '^ZSH_THEME\s*=\s*[^\n]*\n'
-    replace: 'ZSH_THEME="ys"'
+    replace: 'ZSH_THEME="ys"\n'
 
 - name: Set language environment
   blockinfile:
