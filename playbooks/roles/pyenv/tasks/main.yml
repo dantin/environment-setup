@@ -1,0 +1,29 @@
+---
+
+- name: Load variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - default.yml
+      paths:
+        -- vars
+
+- name: Determine if .pyenv exists
+  stat:
+    path: ~/.pyenv
+  register: pyenv_st
+
+- name: Download pyenv install script
+  get_url:
+    url: "{{ pyenv_installer_github_url }}"
+    dest: "{{ deploy_dir }}/scripts/install_pyenv.sh"
+    checksum: "sha256:449cf642f48d3baf88c390dc728f5d7684d05fe5ffec47b0a0586fa4dd63c404"
+    use_proxy: no
+    validate_certs: no
+    mode: 0755
+  when: pyenv_st.stat.exists == False
+
+- name: Install pyenv
+  shell: >
+    sh -c "{{ deploy_dir }}/scripts/install_pyenv.sh"
+  when: pyenv_st.stat.exists == False
