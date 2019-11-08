@@ -19,6 +19,9 @@
   raw: echo no | sh -c "{{ deploy_dir }}/scripts/install_zsh.sh"
   when: oh_my_zsh_st.stat.exists == False
 
+- name: Sync dotfile
+  include_tasks: dotfile.yml
+
 - name: Change default shell
   raw: chsh -s /usr/bin/zsh {{ ansible_user }}
   become: yes
