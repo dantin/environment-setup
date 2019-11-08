@@ -12,6 +12,7 @@ _NOTE_: Some of the scripts are still under developing.
     - [git](#git)
     - [cmake](#cmake)
     - [python3](#python3)
+    - [pyenv](#pyenv)
     - [vim](#vim)
     - [zsh](#zsh)
     - [oh-my-zsh](#oh-my-zsh)
