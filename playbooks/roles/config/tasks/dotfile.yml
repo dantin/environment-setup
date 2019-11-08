@@ -1,0 +1,38 @@
+---
+- name: Determine if dotfile exists
+  stat:
+    path: "~/{{ code_dir }}/dotfile"
+  register: dotfile_st
+
+- name: Sync dotfile from github.com
+  git:
+    repo: "https://github.com/dantin/dotfile.git"
+    dest: "~/{{ code_dir }}/dotfile"
+  when: dotfile_st.stat.exists == False
+
+- name: Install dotfiles
+  shell: >
+    sh -c ./bootstrap.sh
+  args:
+    chdir: "~/{{ code_dir }}/dotfile"
+
+- name: Set zsh theme to ys
+  replace:
+    path: "$HOME/.zshrc"
+    regexp: '^ZSH_THEME\s*=\s*[^\n]*\n'
+    replace: 'ZSH_THEME="ys"'
+
+- name: Set language environment
+  blockinfile:
+    path: "$HOME/.zshrc"
+    marker: "# {mark} language environment"
+    insertafter: '^# export LANG=[^\n]*$'
+    block: |
+      export LANG=en_US.UTF-8
+
+- name: Set customized environment script
+  blockinfile:
+    path: "$HOME/.zshrc"
+    marker: "# {mark} customized environment script"
+    block: |
+      source "$HOME/.bin/env.sh"
