@@ -1,26 +1,42 @@
 ---
 
-- name: Determine if .oh-my-zsh exists
+- name: Determine if dotfile exists
   stat:
-    path: ~/.oh-my-zsh
-  register: oh_my_zsh_st
+    path: "~/{{ code_dir }}/dotfile"
+  register: dotfile_st
 
-- name: Download oh-my-zsh install script
-  get_url:
-    url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-    dest: "{{ deploy_dir }}/scripts/install_zsh.sh"
-    checksum: "sha256:8e772598a453e6ebeeb2774e0a9022e2e9d61f98c47f5aed4005744e86a2771f"
-    use_proxy: no
-    validate_certs: no
-    mode: 0755
-  when: oh_my_zsh_st.stat.exists == False
+- name: Sync dotfile from github.com
+  git:
+    repo: "https://github.com/dantin/dotfile.git"
+    dest: "~/{{ code_dir }}/dotfile"
+  when: dotfile_st.stat.exists == False
 
-- name: Install oh-my-zsh
-  raw: echo no | sh -c "{{ deploy_dir }}/scripts/install_zsh.sh"
-  when: oh_my_zsh_st.stat.exists == False
+- name: Install dotfiles
+  shell: >
+    sh -c ./bootstrap.sh
+  args:
+    chdir: "~/{{ code_dir }}/dotfile"
 
-- name: Sync dotfile
-  include_tasks: dotfile.yml
+- name: Set zsh theme to ys
+  replace:
+    path: "$HOME/.zshrc"
+    regexp: '^ZSH_THEME\s*=\s*[^\n]*\n'
+    replace: 'ZSH_THEME="ys"\n'
+
+- name: Set language environment
+  blockinfile:
+    path: "$HOME/.zshrc"
+    marker: "# {mark} language environment"
+    insertafter: '^# export LANG=[^\n]*$'
+    block: |
+      export LANG=en_US.UTF-8
+
+- name: Set customized environment script
+  blockinfile:
+    path: "$HOME/.zshrc"
+    marker: "# {mark} customized environment script"
+    block: |
+      source "$HOME/.bin/env.sh"
 
 - name: Change default shell
   raw: chsh -s /usr/bin/zsh {{ ansible_user }}

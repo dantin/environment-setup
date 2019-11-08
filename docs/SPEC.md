@@ -12,8 +12,10 @@ _NOTE_: Some of the scripts are still under developing.
     - [git](#git)
     - [cmake](#cmake)
     - [python3](#python3)
+    - [pyenv](#pyenv)
     - [vim](#vim)
     - [zsh](#zsh)
+    - [oh-my-zsh](#oh-my-zsh)
     - [docker-engine](#docker-engine)
     - [docker-compose](#docker-compose)
   - [Config](#config)
@@ -109,6 +111,15 @@ Install from source code:
 
 More detail documentation is available on [documents of python](https://docs.python.org/3.8/using/unix.html).
 
+#### pyenv
+
+Install from script:
+
+    $ curl https://pyenv.run | bash
+    $ curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+
+More detail documentation is available on [documents of pyenv-installer](https://github.com/pyenv/pyenv-installer)
+
 #### vim
 
 _NOTE:_ If you want enable `python3`, you should install `python3` first.
@@ -139,6 +150,12 @@ More detail documantation is available on [code repository of vim](https://githu
 Install from yum repository:
 
     $ sudo yum install -y zsh
+
+#### oh my zsh
+
+Install from script:
+
+    $ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 More detail documentation about config is on [oh-my-zsh](https://ohmyz.sh/).
 

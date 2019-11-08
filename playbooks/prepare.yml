@@ -69,6 +69,13 @@
   roles:
     - zsh
 
+- name: Prepare oh-my-zsh
+  hosts: all
+  gather_facts: false
+  tags: oh-my-zsh
+  roles:
+    - oh-my-zsh
+
 - name: Prepare pyenv
   hosts: all
   gather_facts: false
