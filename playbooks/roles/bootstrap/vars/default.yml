@@ -3,8 +3,12 @@
 extra_os_repository: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
 packages:
-  - chrony            # ntp required
+  - curl              # curl utility
+  - wget              # wget utility
+  - unzip             # unzip utility
+  - tar               # tar utility
+  - tree              # tree utility
+  - chrony            # ntp serive
   - yum-utils         # yum-config-manager utility
-  - tree
 
 ntp_service_name: chronyd

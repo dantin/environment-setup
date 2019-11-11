@@ -83,6 +83,13 @@
   roles:
     - pyenv
 
+- name: Prepare java
+  hosts: all
+  gather_facts: yes
+  tags: java
+  roles:
+    - java
+
 - name: Prepare jenv
   hosts: all
   gather_facts: false
