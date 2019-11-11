@@ -18,6 +18,7 @@ _NOTE_: Some of the scripts are still under developing.
     - [oh-my-zsh](#oh-my-zsh)
     - [docker-engine](#docker-engine)
     - [docker-compose](#docker-compose)
+    - [jEnv](#jenv)
   - [Config](#config)
     - [vim](#vim)
 
@@ -192,6 +193,23 @@ Install from Docker Official repository:
     $ sudo systemctl start docker
 
 Installation documentation is available on [Docker Official website](https://docs.docker.com/install/linux/docker-ce/centos/).
+
+#### jEnv
+
+Install from source code:
+
+    $ git clone https://github.com/jenv/jenv.git ~/.jenv
+
+Config in Shell environment:
+
+    # Shell: bash
+    echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
+    echo 'eval "$(jenv init -)"' >> ~/.bash_profile
+    # Shell: zsh
+    echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.zshrc
+    echo 'eval "$(jenv init -)"' >> ~/.zshrc
+
+Installation documentation is available on [jEnv github.com repository](https://github.com/jenv/jenv).
 
 ### Config
 

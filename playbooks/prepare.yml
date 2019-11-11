@@ -82,3 +82,10 @@
   tags: pyenv
   roles:
     - pyenv
+
+- name: Prepare jenv
+  hosts: all
+  gather_facts: false
+  tags: jenv
+  roles:
+    - jenv
