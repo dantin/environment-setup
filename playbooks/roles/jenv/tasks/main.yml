@@ -1,0 +1,20 @@
+---
+
+- name: Load variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - default.yml
+      paths:
+        -- vars
+
+- name: Determine if .jenv exists
+  stat:
+    path: ~/.jenv
+  register: jenv_st
+
+- name: Sync jenv from github.com
+  git:
+    repo: "{{ jenv_installer_github_url }}"
+    dest: "~/.jenv"
+  when: jenv_st.stat.exists == False
