@@ -1,4 +1,4 @@
 ---
 
-#jdk: openjdk
-jdk: oraclejdk
+jdk: openjdk
+#jdk: oraclejdk

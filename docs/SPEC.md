@@ -18,6 +18,7 @@ _NOTE_: Some of the scripts are still under developing.
     - [oh-my-zsh](#oh-my-zsh)
     - [docker-engine](#docker-engine)
     - [docker-compose](#docker-compose)
+    - [Java](#java)
     - [jEnv](#jenv)
   - [Config](#config)
     - [vim](#vim)
@@ -193,6 +194,35 @@ Install from Docker Official repository:
     $ sudo systemctl start docker
 
 Installation documentation is available on [Docker Official website](https://docs.docker.com/install/linux/docker-ce/centos/).
+
+#### Java
+
+The Default JDK is set to OpenJDK, which by default is install at `/usr/lib/jvm` directory.
+
+    $ sudo yum install java-1.8.0-openjdk-devel
+    $ ls -l /usr/lib/jvm | grep ^d | awk '{print $(NF)}' | grep ^java
+
+Oracle JDK can be downloaded from [Oracle Java SE page](https://www.oracle.com/technetwork/java/javase/downloads/index.html).
+
+    $ curl -kLO -H "Cookie: oraclelicense=accept-securebackup-cookie" "https://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz"
+    $ sudo tar -zxvf jdk-8u131-linux-x64.tar.gz -C /usr/local/share/java
+    $ sudo update-alternatives --install /usr/bin/java java /usr/local/share/java/jdk.1.8.0_131/bin/java 100
+    $ sudo update-alternatives --install /usr/bin/javac javac /usr/local/share/java/jdk.1.8.0_131/bin/javac 100
+
+Support you use `jenv`, you can add them to jenv shims:
+
+    $ jenv add /usr/local/share/java/jdk1.8.0_131/
+    $ jenv add /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-0.el7_7.x86_64
+
+The system default JDK can be set in `/etc/profile`.
+
+```
+JAVA_HOME=/usr/lib/jvm/java-openjdk
+JRE_HOME=$JAVA_HOME/jre
+CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+export JAVA_HOME JRE_HOME CLASS_PATH PATH
+```
 
 #### jEnv
 

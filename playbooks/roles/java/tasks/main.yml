@@ -91,3 +91,15 @@
 
   when: jdk == "oraclejdk"
   become: yes
+
+- name: Set OpenJDK as System JDK
+  blockinfile:
+    path: "/etc/profile"
+    marker: "# {mark} customized system JDK"
+    block: |
+      JAVA_HOME=/usr/lib/jvm/java-openjdk
+      JRE_HOME=$JAVA_HOME/jre
+      CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+      PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+      export JAVA_HOME JRE_HOME CLASS_PATH PATH
+  become: yes
