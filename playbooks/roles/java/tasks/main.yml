@@ -1,0 +1,93 @@
+---
+
+- name: Load variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - default.yml
+      paths:
+        -- vars
+
+- name: Fail if trying to install OpenJDK on SLES 11
+  fail:
+    msg: "OpenJDK is not available or supported on SLES 11"
+  when: jdk == "openjdk" and ansible_os_family|lower == "suse" and ansible_distribution_major_version|int == 11
+
+- name: Install OpenJDK
+  package:
+    name: "{{ openjdk_package }}"
+    update_cache: yes
+    state: present
+  when: jdk == "openjdk"
+  become: yes
+
+- block:
+    - name: Download Oracle JDK tarball
+      get_url:
+        url: "{{ oraclejdk_options.jdk_url }}"
+        dest: "{{ deploy_dir }}/binary/jdk.tar.gz"
+        checksum: "sha256:62b215bdfb48bace523723cdbb2157c665e6a25429c73828a32f00e587301236"
+        headers:
+          Cookie: oraclelicense=accept-securebackup-cookie
+        use_proxy: no
+        validate_certs: no
+
+    - name: Create the {{ oraclejdk_options.base_folder }} directory
+      file:
+        path: "{{ oraclejdk_options.base_folder }}"
+        state: directory
+
+    - name: Extract Oracle JDK tarball
+      unarchive:
+        remote_src: yes
+        src: "{{ deploy_dir }}/binary/jdk.tar.gz"
+        dest: "{{ oraclejdk_options.base_folder }}"
+        owner: root
+        group: root
+        mode: 0755
+        list_files: yes
+        keep_newer: yes
+      register: tarball_content
+
+    - name: Set the new JDK folder name
+      set_fact:
+        jdk_folder: "{{ tarball_content.files[0] | regex_replace('/(.*)$','') }}"
+
+    - name: Create the {{ oraclejdk_options.base_folder }}/latest symlink
+      file:
+        src: "{{ oraclejdk_options.base_folder }}/{{ jdk_folder }}"
+        path: "{{ oraclejdk_options.base_folder }}/latest"
+        state: link
+        force: yes
+
+    - name: Download JCE archive
+      get_url:
+        url: "{{ oraclejdk_options.jce_url }}"
+        dest: "{{ deploy_dir }}/binary/jce.zip"
+        checksum: "sha256:f3020a3922efd6626c2fff45695d527f34a8020e938a49292561f18ad1320b59"
+        headers:
+          Cookie: oraclelicense=accept-securebackup-cookie
+        use_proxy: no
+        validate_certs: no
+
+    - name: Extract the JCE archive
+      unarchive:
+        remote_src: yes
+        src: "{{ deploy_dir }}/binary/jce.zip"
+        dest: "{{ oraclejdk_options.base_folder }}/latest/jre/lib/security"
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Copy the JCE jar files to {{ oraclejdk_options.base_folder }}/latest/jre/lib/security
+      copy:
+        remote_src: yes
+        src: "{{ oraclejdk_options.base_folder }}/latest/jre/lib/security/UnlimitedJCEPolicyJDK8/{{ item }}"
+        dest: "{{ oraclejdk_options.base_folder }}/latest/jre/lib/security"
+        force: yes
+      with_items:
+        - local_policy.jar
+        - US_export_policy.jar
+
+  when: jdk == "oraclejdk"
+  become: yes

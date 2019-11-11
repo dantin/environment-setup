@@ -1,0 +1,9 @@
+---
+
+openjdk_package: java-1.8.0-openjdk-devel
+
+oraclejdk_options:
+  version: 1.8.0_131
+  jdk_url: https://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz
+  jce_url: http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
+  base_folder: /usr/local/share/java
