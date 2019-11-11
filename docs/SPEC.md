@@ -199,6 +199,7 @@ Installation documentation is available on [Docker Official website](https://doc
 Install from source code:
 
     $ git clone https://github.com/jenv/jenv.git ~/.jenv
+    $ brew install jenv  # using Homebrew on macOS
 
 Config in Shell environment:
 
