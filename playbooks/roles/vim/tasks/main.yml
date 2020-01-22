@@ -26,9 +26,9 @@
     compile_command: >
       ./configure --prefix=/usr/local
       --with-features=huge
-      --enable-cscope
-      --enable-multibyte
-      --enable-perlinterp
+      --enable-cscope=yes
+      --enable-multibyte=yes
+      --enable-perlinterp=yes
       --enable-pythoninterp=yes
       --with-python-command=/usr/bin/python
       --with-python-config-dir=/lib64/python2.7/config
@@ -66,3 +66,9 @@
       - perl-ExtUtils-XSpp
       - perl-ExtUtils-CBuilder
       - perl-ExtUtils-Embed
+
+- name: Set vim as default editor
+  shell: >
+    update-alternatives --install /usr/bin/editor editor /usr/local/bin/vim 1 &&
+    update-alternatives --set editor /usr/local/bin/vim
+  become: yes
